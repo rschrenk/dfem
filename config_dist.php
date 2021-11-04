@@ -31,6 +31,14 @@ $CFG->db = [
         'pass'   => '',
         'prefix' => 'dfem_',
 ];
+// YOU SHOULD ADD A SALT HERE TO PROTECT YOUR USERS PRIVACY.
+// ATTENTION: IF YOU CHANGE THE SALT, CONNECTIONS BETWEEN personas AND
+// authentications WILL NOT BE POSSIBLE ANYMORE.
+// ADD NEW SALTS AT THE TOP OF THE LIST, UP TO 10 SALTS WILL BE USED.
+// HINT: use a salt generator like https://www.symbionts.de/tools/random-password-salt-generator.html
+$CFG->salts = [
+    '@XZMptHokoNdLFyFwp:7Oo=cOlPYPQcVodp.H-J)@bpxh'
+];
 $CFG->lang_default  = 'en';
 $CFG->lang_fallback = 'en';
 

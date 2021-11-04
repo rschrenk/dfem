@@ -23,12 +23,36 @@
 if (!defined('DFEM_INTERNAL')) die();
 
 class dfem_output {
+    private static $loaded = false;
+
     public function header() {
         global $PAGE;
-        $m = new \Mustache_Engine;
-        $m->loadTemplate('header');
-        echo $m->render($PAGE);
+        $params = [
+            'heading' => $PAGE->heading(),
+            'title' => $PAGE->title(),
+        ];
+        return $this->render_from_template('core/header', $params);
     }
 
+    public function footer() {
+        return $this->render_from_template('core/footer');
+    }
+
+    public function render_from_template($template, $params = []) {
+        global $CFG;
+        $m = self::get_mustache_engine();
+        return $m->render($template, $params);
+    }
+
+    private static function get_mustache_engine() {
+        global $CFG;
+        if (!self::$loaded) {
+            require_once("{$CFG->dirroot}/vendor/autoload.php");
+            self::$loaded = true;
+        }
+        return new \Mustache_Engine(array(
+            'loader' => new Mustache_Loader_FilesystemLoader("{$CFG->dirroot}/templates"),
+        ));
+    }
 
 }

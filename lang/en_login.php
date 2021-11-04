@@ -20,17 +20,10 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once("{$CFG->dirroot}/inc/functions.php");
-require_once("{$CFG->dirroot}/classes/dfem_db.php");
-require_once("{$CFG->dirroot}/classes/dfem_lang.php");
-require_once("{$CFG->dirroot}/classes/dfem_output.php");
-require_once("{$CFG->dirroot}/classes/dfem_page.php");
+if (!defined('DFEM_INTERNAL')) die();
 
-\dfem_lang::init();
-$OUTPUT = new \dfem_output();
-$PAGE = new \dfem_page();
-
-session_start();
-if (empty($_SESSION['userid']) && !defined('LOGIN_PAGE')) {
-    redirect("/login/index.php");
-}
+$lang['enter_email'] = 'Please enter your E-Mailaddress to proceed!';
+$lang['email_dummy'] = 'your_email@provider.org';
+$lang['proceed'] = 'Proceed';
+$lang['welcome'] = 'Welcome to the DFEM-tool';
+$lang['welcome_text'] = 'The Digital Footprint Estimation Model allows an estimation of the digital footprint caused by a software tool or platform regarding personal, cultural and moral perceptions. When you use this tool, some demographic data is raised for scientific purpose. It is our utmost aim to keep your data confidential. Therefore, your e-mail address is only stored hashed and salted, and you receive a one-time password when you login to the DFEM-tool!';

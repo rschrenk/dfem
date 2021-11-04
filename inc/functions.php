@@ -29,6 +29,38 @@ function get_config($identifier) {
     }
 }
 
-function get_string($identifier) {
-    \dfem_lang::get_string($identifier);
+function get_string($identifier, $component = '', $language = '') {
+    return \dfem_lang::get_string($identifier, $component, $language);
+}
+
+function redirect($url, $params = []) {
+    global $CFG;
+    $strparams = '';
+    if (!empty($params) && !is_array($params) && !is_object($params)) {
+        $strparams = $params;
+    }
+    if (is_array($params) && count($params) > 0) {
+        $aparams = [];
+        foreach ($params as $n => $v) {
+            $aparams[] = $n . '=' . rawurlencode($v);
+        }
+        $strparams = implode('&', $aparams);
+    }
+    if (!empty($strparams)) {
+        $strparams = "?$strparams";
+    }
+    header("Location: {$CFG->wwwroot}$url$strparams");
+    exit;
+}
+
+function retrieve($parameter) {
+    if (!empty($_POST[$parameter])) {
+        return $_POST[$parameter];
+    }
+    if (!empty($_GET[$parameter])) {
+        return $_GET[$parameter];
+    }
+    if (!empty($_COOKIE[$parameter])) {
+        return $_COOKIE[$parameter];
+    }
 }

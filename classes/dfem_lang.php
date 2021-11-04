@@ -31,7 +31,7 @@ class dfem_lang {
     public static function init() {
         global $CFG;
         self::load_language($CFG->lang_fallback);
-        if ($CFg->lang_fallback != $CFG->lang_default) {
+        if ($CFG->lang_fallback != $CFG->lang_default) {
             self::load_language($CFG->lang_default);
         }
     }
@@ -39,6 +39,7 @@ class dfem_lang {
      * Get a particular localized string.
      * If string is not found in default language, fallback language is used.
      * @param verb the verb that should be returned in localized language.
+     * @param component the component to load string of.
      * @param language valid language identifier (e.g. en, de, ...)
      */
     public static function get_string($verb, $component = 'core', $language = '') {
@@ -49,7 +50,7 @@ class dfem_lang {
         }
         $languages = [ $language, $CFG->lang_fallback];
         foreach ($languages as $language) {
-            if (empty(self::$verbs[$language] || empty(self::$verbs[$language][$component]))) {
+            if (empty(self::$verbs[$language]) || empty(self::$verbs[$language][$component])) {
                 self::load_language($language, $component);
             }
             if (!empty(self::$verbs[$language][$component][$verb])) {
@@ -60,14 +61,16 @@ class dfem_lang {
     /**
      * Load a specific language file into memory.
      * @param language valid language identifier (e.g. en, de, ...)
+     * @param component the component to load strings of.
      */
-    private static function load_language($language) {
+    private static function load_language($language, $component = 'core') {
         global $CFG;
-        if (!file_exists("$CFG->dirroot/lang/$language.php")) {
+        if (!file_exists("$CFG->dirroot/lang/{$language}_{$component}.php")) {
             return;
         }
-        require_once("{$CFG->dirroot}/lang/$language.php");
-        self::$verbs[$language] = $lang;
+        require_once("{$CFG->dirroot}/lang/{$language}_{$component}.php");
+        self::$verbs[$language][$component] = $lang;
+
     }
     /**
      * Sets the default language for a single request.

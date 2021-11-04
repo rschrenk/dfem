@@ -22,8 +22,8 @@
 
 if (!defined('DFEM_INTERNAL')) die();
 
-class dfem_output {
-    private $heading, $title;
+class dfem_page {
+    private $vars = [];
 
     public function heading($v = '') {
         return $this->get_set('heading', $v);
@@ -34,13 +34,13 @@ class dfem_output {
 
     private function get_set($t, $v) {
         if (empty($v)) {
-            if (!empty($this->{$t})) {
-                return $this->{$t};
+            if (!empty($this->vars[$t])) {
+                return $this->vars[$t];
             } else {
                 return;
             }
         } else {
-            $this->{$t} = $v;
+            $this->vars[$t] = $v;
             return $v;
         }
     }

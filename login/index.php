@@ -32,21 +32,42 @@ $email = retrieve('email');
 if (!empty($email)) {
     for ($attempt = 0; $attempt < count($CFG->salts) && $attempt < 10; $attempt++) {
         $auth = $DB->get_record('authentications', array('email' => $DB->salt($email, $attempt)));
-        if (!empty($auth->id)) {
+        if (!empty($auth) && !empty($auth->id)) {
             break;
         }
     }
-
+    if (empty($auth) || empty($auth->id)) {
+        $auth = (object) [
+            'email_hashed' => $DB->salt($email),
+            'onetimepassword' => substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 7)), 0, 7),
+            'passwordcreated' => time(),
+        ];
+        $auth->id = $DB->insert_record('authentications', $auth);
+    }
+    if (!empty($auth) && !empty($auth->id)) {
+        $_SESSION['authid'] = $auth->id;
+    }
+}
+if (!empty($_SESSION['authid'])) {
+    $auth = $DB->get_record('authentications', array('id' => $_SESSION['authid']));
 }
 
-$params = [
-    'str_enter_email' => get_string('enter_email', 'login'),
-    'str_email_dummy' => get_string('email_dummy', 'login'),
-    'str_proceed' => get_string('proceed', 'login'),
-    'str_welcome' => get_string('welcome', 'login'),
-    'str_welcome_text' => get_string('welcome_text', 'login'),
-];
-
 echo $OUTPUT->header();
-echo $OUTPUT->render_from_template('login/login', $params);
+
+if (empty($_SESSION['authid'])) {
+    $params = [
+        'str_enter_email' => get_string('enter_email', 'login'),
+        'str_email_dummy' => get_string('email_dummy', 'login'),
+        'str_proceed' => get_string('proceed', 'login'),
+        'str_welcome' => get_string('welcome', 'login'),
+        'str_welcome_text' => get_string('welcome_text', 'login'),
+    ];
+    echo $OUTPUT->render_from_template('login/login', $params);
+} else {
+    $params = [
+        'str_proceed' => get_string('proceed', 'login'),
+    ];
+    echo $OUTPUT->render_from_template('login/onetimepassword', $params);
+}
+
 echo $OUTPUT->footer();

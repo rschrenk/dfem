@@ -29,6 +29,7 @@ require_once("{$CFG->dirroot}/classes/dfem_page.php");
 \dfem_lang::init();
 $OUTPUT = new \dfem_output();
 $PAGE = new \dfem_page();
+$DB = new \dfem_db();
 
 session_start();
 if (empty($_SESSION['userid']) && !defined('LOGIN_PAGE')) {

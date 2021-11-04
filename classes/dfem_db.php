@@ -53,7 +53,7 @@ class dfem_db {
             $LIMIT = " LIMIT $limitfrom, $limitnum";
         }
         $sql = "SELECT $fields FROM {$this->prefix}_$table $WHERE $LIMIT";
-        $rows = $con->query($sql);
+        $rows = $this->con->query($sql);
         $results = [];
         while ($row = $rows->fetch_object) {
             $results[$row->id] = $row;
@@ -64,12 +64,22 @@ class dfem_db {
 
     }
     public function insert_record($table, $object) {
-
+        $sql = "INSERT INTO {$this->prefix}_$table (";
+        foreach ($object as $field => $val) {
+            $sql .= $this->con->real_escape_string($field) . "=\"" . $this->con->real_escape_string($val) . "\"";
+        }
+        $sql .= ")";
+        echo $sql;
+        $this->con->query($sql);
+        return $this->con->insert_id;
     }
     public function salt($param, $history = 0) {
         global $CFG;
-        if ($history > count($CFG->salts)) $history = 0;
-        return password_hash($param . $CFG->salts[$history]);
+        if ($history > count($CFG->salts)) {
+            $history = 0;
+        }
+        $salted = password_hash($param, PASSWORD_DEFAULT, array('salt' => $CFG->salts[$history]));
+        return $salted;
     }
 
     private function condition_sql($conditions) {

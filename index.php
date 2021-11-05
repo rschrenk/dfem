@@ -19,17 +19,13 @@
  * @author     Robert Schrenk
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-//phpinfo();
 
 require_once("config.php");
 
 $PAGE->heading(get_string('dfem'));
 $PAGE->title(get_string('dfem'));
 
-$persona = $DB->get_record('personas', [ 'authid' => $_SESSION['authid' ]]);
-if (empty($persona->id)) {
-    redirect("/persona.php");
-}
+$persona = require_persona();
 
 echo $OUTPUT->header();
 $params = (object) [
@@ -62,7 +58,7 @@ foreach ($tools as $tool) {
             'tools' => [],
         ];
     }
-    $tool->toolurl = "$CFG->wwwroot/index.php?id=$tool->id";
+    $tool->toolurl = "$CFG->wwwroot/tool.php?id=$tool->id";
     $params->toolcategories[$catindex]->archetypes[$archeindex]->tools[] = $tool;
 }
 

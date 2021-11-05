@@ -53,6 +53,15 @@ function redirect($url, $params = []) {
     exit;
 }
 
+function require_persona() {
+    global $DB;
+    $persona = $DB->get_record('personas', [ 'authid' => $_SESSION['authid' ]]);
+    if (empty($persona->id)) {
+        redirect("/persona.php");
+    }
+    return $persona;
+}
+
 function retrieve($parameter) {
     if (!empty($_POST[$parameter])) {
         return $_POST[$parameter];

@@ -26,11 +26,19 @@ $CFG = (object) [];
 $CFG->dirroot = '';
 $CFG->wwwroot = '';
 $CFG->db = [
-        'host'   => 'localhost',
-        'db'     => 'dfem',
-        'user'   => 'root',
-        'pass'   => '',
-        'prefix' => 'dfem_',
+    'host'   => 'localhost',
+    'db'     => 'dfem',
+    'user'   => 'root',
+    'pass'   => '',
+    'prefix' => 'dfem_',
+];
+$CFG->phpmailer = [
+    'host'   => '',
+    'user'   => '',
+    'pass'   => '',
+    'port'   => 465,
+    'from'   => '',
+    'fromn'  => 'Digital Footprint Estimation Model',
 ];
 // YOU SHOULD ADD A SALT HERE TO PROTECT YOUR USERS PRIVACY.
 // ATTENTION: IF YOU CHANGE THE SALT, CONNECTIONS BETWEEN personas AND

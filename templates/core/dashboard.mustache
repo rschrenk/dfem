@@ -1,16 +1,23 @@
 <div class="dashboard">
     <div class="tools">
-        {{# archetypes }}
-            <div class="archetype">{{ name }}</div>
-            {{# tools }}
-            <div id="tool-{{ id }}">
-                <a href="#">
-                    {{ name }}
-                </a>
-            </div>
-            {{/ tools }}
-        {{/ archetypes }}
+        {{#toolcategories}}
+            <div class="toolcategory">{{category}}</div>
+            {{#archetypes}}
+                <div class="archetype">{{archetype}}</div>
+                {{#tools}}
+                <div id="tool-{{id}}" class="tool">
+                    <a href="{{toolurl}}">
+                        {{name}}
+                    </a>
+                </div>
+                {{/tools}}
+            {{/archetypes}}
+        {{/toolcategories}}
+
     </div>
-    <div class="tool">
+    <div class="estimation">
+        {{#tool}}
+            {{name}}
+        {{/tool}}
     </div>
 </div>

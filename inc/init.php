@@ -23,6 +23,7 @@
 require_once("{$CFG->dirroot}/inc/functions.php");
 require_once("{$CFG->dirroot}/classes/dfem_db.php");
 require_once("{$CFG->dirroot}/classes/dfem_lang.php");
+require_once("{$CFG->dirroot}/classes/dfem_mailer.php");
 require_once("{$CFG->dirroot}/classes/dfem_output.php");
 require_once("{$CFG->dirroot}/classes/dfem_page.php");
 

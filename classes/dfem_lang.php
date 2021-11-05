@@ -35,6 +35,33 @@ class dfem_lang {
             self::load_language($CFG->lang_default);
         }
     }
+    public static function get_countries($language = '') {
+        global $CFG;
+        if (empty($language)) {
+            $language = $CFG->lang_default;
+        }
+        // First load list in fallback language, then overwrite existing pairs
+        // from desired language.
+        $countries = [];
+        $files = [
+            "$CFG->dirroot/lang/$CFG->lang_fallback/countries.csv",
+        ];
+        if ($CFG->lang_fallback != $language) {
+            $files[] = "$CFG->dirroot/lang/$language/countries.csv";
+        }
+        foreach ($files as $file) {
+            if (file_exists($file)) {
+                $lines = explode("\n", file_get_contents($file));
+                foreach ($lines as $line) {
+                    $line = explode(",", $line);
+                    if (count($line) == 2) {
+                        $countries[strtolower(trim($line[0]))] = trim($line[1]);
+                    }
+                }
+            }
+        }
+        return $countries;
+    }
     /**
      * Get a particular localized string.
      * If string is not found in default language, fallback language is used.

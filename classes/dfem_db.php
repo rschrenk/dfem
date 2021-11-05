@@ -125,7 +125,7 @@ class dfem_db {
         try {
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute($values);
-            return $pdo->lastInsertId();
+            return $this->pdo->lastInsertId();
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
         }

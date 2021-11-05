@@ -15,6 +15,34 @@ a {
     }
 }
 
+.dashboard {
+    display: flex;
+
+    &>div {
+        width: 33%;
+    }
+
+    .tools {
+        .toolcategory {
+            font-weight: bold;
+            text-align: center;
+            background-color: darkgray;
+            color: white;
+
+
+        }
+        .archetype {
+            background-color: lightgray;
+            text-align: center;
+            font-weight: bold;
+        }
+        .tool {
+            text-align: center;
+            text-decoration: none;
+        }
+    }
+}
+
 .onetimepassword {
     .countdown {
         position: fixed;
@@ -28,5 +56,20 @@ a {
         &.expired {
             background-color: darkred;
         }
+    }
+}
+
+.alert {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 25px;
+    &.alert-danger {
+        background-color: lightred;
+        border-color: darkred;
+    }
+    &.alert-success {
+        background-color: lightgreen;
+        border-color: green;
     }
 }

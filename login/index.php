@@ -57,6 +57,9 @@ if (!empty($email)) {
     if (!empty($auth) && !empty($auth->id)) {
         $_SESSION['expected_authid'] = $auth->id;
 
+
+        $mailer = new \dfem_mailer();
+
         // Now send the e-Mail containing the One Time Password.
         $params = [
             'onetimepassword' => $auth->onetimepassword,
@@ -67,16 +70,10 @@ if (!empty($email)) {
             'str_proceed' => get_string('proceed', 'login'),
             'str_welcome' => get_string('welcome', 'login'),
         ];
-        $mailbody = $OUTPUT->render_from_template('login/email', $params);
-        $mailsubject = get_string('onetimepassword_subject', 'login');
-        $header = [
-            'MIME-Version: 1.0',
-            'Content-type: text/html; charset=iso-8859-1',
-            'To: ' . $email,
-            'From: ' . get_string('email_noreply', 'login'),
-        ];
-
-        mail($email, $mailsubject, $mailbody, implode("\r\n", $header));
+        $mailer->msgHTML($OUTPUT->render_from_template('login/email', $params));
+        $mailer->set('Subject', get_string('onetimepassword_subject', 'login'));
+        $mailer->addAddress($email);
+        $mailer->send();
     }
 }
 if (!empty($_SESSION['expected_authid'])) {

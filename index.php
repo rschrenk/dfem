@@ -26,23 +26,50 @@ require_once("config.php");
 $PAGE->heading(get_string('dfem'));
 $PAGE->title(get_string('dfem'));
 
+$persona = $DB->get_record('personas', [ 'authid' => $_SESSION['authid' ]]);
+if (empty($persona->id)) {
+    redirect("/persona.php");
+}
+
 echo $OUTPUT->header();
 $params = (object) [
-    'archetypes' => [],
+    'toolcategories' => [],
+    'tool' => '',
 ];
-$sql = "SELECT * FROM {prefix}tools ORDER BY archetype ASC, name ASC";
+
+$sql = "SELECT t.*, tc.category
+            FROM {prefix}tools t, {prefix}toolcategories tc
+            WHERE t.toolcategory = tc.id
+            ORDER BY tc.category ASC, t.archetype ASC, t.name ASC";
 $tools = $DB->get_records_sql($sql);
-$archetype = ''; $index = 0;
+$toolcategory = ''; $archetype = ''; $catindex = -1; $archeindex = -1;
 foreach ($tools as $tool) {
+    if ($tool->category != $toolcategory) {
+        $catindex++;
+        $toolcategory = $tool->category;
+        $params->toolcategories[$catindex] = (object) [
+            'category' => $toolcategory,
+            'archetypes' => [],
+        ];
+        $archetype = '';
+        $archeindex = -1;
+    }
     if ($archetype != $tool->archetype) {
+        $archeindex++;
         $archetype = $tool->archetype;
-        $params['archetypes'][$index++] = (object)[
+        $params->toolcategories[$catindex]->archetypes[$archeindex] = (object) [
             'archetype' => $archetype,
             'tools' => [],
         ];
     }
-    $archetypes[$index]->tools[] = $tool;
+    $tool->toolurl = "$CFG->wwwroot/index.php?id=$tool->id";
+    $params->toolcategories[$catindex]->archetypes[$archeindex]->tools[] = $tool;
 }
-print_r($params);
+
+$toolid = retrieve('id');
+if (!empty($toolid)) {
+    $params->tool = $DB->get_record('tools', [ 'id' => $toolid ]);
+}
+
 echo $OUTPUT->render_from_template('core/dashboard', $params);
 echo $OUTPUT->footer();

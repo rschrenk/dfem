@@ -1,0 +1,80 @@
+<div class="persona">
+    <h3>{{str_persona}}</h3>
+    <p>{{str_persona_text}}</p>
+    <form method="POST" action="">
+        <table border="0">
+            <tr>
+                <td>{{str_age}}:</td>
+                <td>
+                    <input name="age" type="number" min="6" max="120" value="{{age}}" />
+                </td>
+            </tr>
+            <tr>
+                <td>{{str_gender}}:</td>
+                <td>
+                    <select name="gender">
+                        <option value="">{{str_select}}</option>
+                        {{#s_gender}}
+                            <option value="{{gender}}"{{#selected}} selected{{/selected}}>
+                                {{str_gender}}
+                            </option>
+                        {{/s_gender}}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>{{str_industry}}:</td>
+                <td>
+                    <select name="industry">
+                        <option value="">{{str_select}}</option>
+                        {{#s_industry}}
+                            <option value="{{industry}}"{{#selected}} selected{{/selected}}>
+                                {{str_industry}}
+                            </option>
+                        {{/s_industry}}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>{{str_academiclevel}}:</td>
+                <td>
+                    <select name="academiclevel">
+                        <option value="">{{str_select}}</option>
+                        {{#s_academiclevel}}
+                            <option value="{{academiclevel}}"{{#selected}} selected{{/selected}}>
+                                {{str_academiclevel}}
+                            </option>
+                        {{/s_academiclevel}}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>{{str_residual}}:</td>
+                <td>
+                    <select name="residual">
+                        <option value="">{{str_select}}</option>
+                        {{#s_residual}}
+                            <option value="{{residual}}"{{#selected}} selected{{/selected}}>
+                                {{str_residual}}
+                            </option>
+                        {{/s_residual}}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>{{str_nationality}}:</td>
+                <td>
+                    <select name="nationality">
+                        <option value="">{{str_select}}</option>
+                        {{#s_nationality}}
+                            <option value="{{nationality}}"{{#selected}} selected{{/selected}}>
+                                {{str_nationality}}
+                            </option>
+                        {{/s_nationality}}
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <input type="submit" value="{{str_persona_store}}" />
+    </form>
+</div>

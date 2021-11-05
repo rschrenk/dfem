@@ -27,6 +27,7 @@ $CFG->dirroot = '';
 $CFG->wwwroot = '';
 $CFG->db = [
         'host'   => 'localhost',
+        'db'     => 'dfem',
         'user'   => 'root',
         'pass'   => '',
         'prefix' => 'dfem_',

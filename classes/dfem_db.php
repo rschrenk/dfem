@@ -23,17 +23,26 @@
 if (!defined('DFEM_INTERNAL')) die();
 
 class dfem_db {
-    private $con;
+    private $pdo;
     private $prefix;
 
     public function __construct() {
         global $CFG;
-        $con = new mysqli($CFG->db['host'],  $CFG->db['user'], $CFG->db['pass']);
-        if ($con->connect_error) {
-            // redirect to error page.
-        }
+
         $this->prefix = $CFG->db['prefix'];
-        $this->con = $con;
+        $dsn = "mysql:host={$CFG->db['host']};dbname={$CFG->db['db']};charset=utf8mb4";
+        $options = [
+            PDO::ATTR_EMULATE_PREPARES   => false, // turn off emulation mode for "real" prepared statements
+            PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION, //turn on errors in the form of exceptions
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, //make the default fetch be an associative array
+        ];
+        try {
+            $this->pdo = new PDO($dsn, $CFG->db['user'], $CFG->db['pass'], $options);
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            exit('Database not available!');
+            // @todo redirect to error page.
+        }
     }
 
     public function get_record($table, $conditions = [], $fields = '*') {
@@ -47,31 +56,79 @@ class dfem_db {
         }
     }
     public function get_records($table, $conditions, $fields, $limitfrom = 0, $limitnum = 0) {
-        $WHERE = $this->condition_sql($conditions);
+        $cfields = []; $values = [];
+        foreach ($conditions as $cfield => $val) {
+            $cfields[] = $cfield . " = ?";
+            $values[] = $val;
+        }
+        if (count($cfields) > 0) {
+            $WHERE = " WHERE " . implode(" AND ", $cfields);
+        }
+
         $LIMIT = "";
         if ($limitfrom > 0 || $limitnum > 0) {
             $LIMIT = " LIMIT $limitfrom, $limitnum";
         }
-        $sql = "SELECT $fields FROM {$this->prefix}_$table $WHERE $LIMIT";
-        $rows = $this->con->query($sql);
-        $results = [];
-        while ($row = $rows->fetch_object) {
-            $results[$row->id] = $row;
+        $sql = "SELECT $fields FROM {$this->prefix}$table $WHERE $LIMIT";
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute($values);
+            $arr = $stmt->fetchAll(PDO::FETCH_OBJ);
+            return $arr;
+        } catch(PDOException $e) {
+            echo "DB-Error: " . $e->getMessage();
+        }
+
+        return $results;
+    }
+    public function get_records_sql($sql, $params = []) {
+        $sql = str_replace('{prefix}', $this->prefix, $sql);
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute($params);
+            $arr = $stmt->fetchAll(PDO::FETCH_OBJ);
+            return $arr;
+        } catch(PDOException $e) {
+            echo "DB-Error: " . $e->getMessage();
         }
         return $results;
     }
-    public function update_record($table, $object, $conditions) {
+    public function update_record($table, $object) {
+        $sql = "UPDATE {$this->prefix}$table SET ";
+        $cfields = []; $values = [];
+        foreach ($object as $cfield => $val) {
+            $cfields[] = "$cfield = ?";
+            $values[] = $val;
+        }
+        $sql .= implode(", ", $cfields);
+        $sql .= " WHERE id = ?";
+        $values[] = $object->id;
+
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute($values);
+        } catch(PDOException $e) {
+            echo "DB-Error: " . $e->getMessage();
+        }
 
     }
     public function insert_record($table, $object) {
-        $sql = "INSERT INTO {$this->prefix}_$table (";
+        $sql = "INSERT INTO {$this->prefix}$table ";
+        $fields = []; $qms = []; $values = [];
         foreach ($object as $field => $val) {
-            $sql .= $this->con->real_escape_string($field) . "=\"" . $this->con->real_escape_string($val) . "\"";
+            $fields[] = $field;
+            $values[] = $val;
+            $qms[] = '?';
         }
-        $sql .= ")";
-        echo $sql;
-        $this->con->query($sql);
-        return $this->con->insert_id;
+        $sql .= "(" . implode(", ", $fields) . ") VALUES (" . implode(", ", $qms) . ")";
+
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute($values);
+            return $pdo->lastInsertId();
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
     }
     public function salt($param, $history = 0) {
         global $CFG;

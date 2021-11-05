@@ -19,30 +19,31 @@
  * @author     Robert Schrenk
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-//phpinfo();
 
-require_once("config.php");
+define('LOGIN_PAGE', 1);
 
-$PAGE->heading(get_string('dfem'));
-$PAGE->title(get_string('dfem'));
+require_once("../config.php");
+
+$confirmed = retrieve('confirmed');
+if (!empty($confirmed)) {
+    unset($_SESSION['authid']);
+}
+
+if (empty($_SESSION['authid'])) {
+    redirect('/login/index.php');
+}
+
+$PAGE->heading(get_string('logout', 'login'));
+$PAGE->title(get_string('logout', 'login'));
 
 echo $OUTPUT->header();
-$params = (object) [
-    'archetypes' => [],
+
+$params = [
+    'str_proceed' => get_string('proceed', 'login'),
+    'str_logout' => get_string('logout', 'login'),
+    'str_logout_text' => get_string('logout_text', 'login'),
+    'url_logout' => $CFG->wwwroot . '/login/logout.php?confirmed=1',
 ];
-$sql = "SELECT * FROM {prefix}tools ORDER BY archetype ASC, name ASC";
-$tools = $DB->get_records_sql($sql);
-$archetype = ''; $index = 0;
-foreach ($tools as $tool) {
-    if ($archetype != $tool->archetype) {
-        $archetype = $tool->archetype;
-        $params['archetypes'][$index++] = (object)[
-            'archetype' => $archetype,
-            'tools' => [],
-        ];
-    }
-    $archetypes[$index]->tools[] = $tool;
-}
-print_r($params);
-echo $OUTPUT->render_from_template('core/dashboard', $params);
+echo $OUTPUT->render_from_template('login/logout', $params);
+
 echo $OUTPUT->footer();

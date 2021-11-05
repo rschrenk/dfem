@@ -30,6 +30,7 @@ class dfem_output {
         $params = [
             'heading' => $PAGE->heading(),
             'title' => $PAGE->title(),
+            'stylesheets' => $PAGE->get_stylesheets(),
         ];
         return $this->render_from_template('core/header', $params);
     }

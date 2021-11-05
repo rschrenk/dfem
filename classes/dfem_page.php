@@ -24,6 +24,23 @@ if (!defined('DFEM_INTERNAL')) die();
 
 class dfem_page {
     private $vars = [];
+    private $stylesheets = [];
+
+    public function __construct() {
+        $this->add_stylesheet('/style/main.css');
+    }
+
+    public function add_stylesheet($relativepath) {
+        $this->stylesheets[] = $relativepath;
+    }
+    public function get_stylesheets() {
+        global $CFG;
+        $stylesheets = [];
+        foreach ($this->stylesheets as $stylesheet) {
+            $stylesheets[] = "<link rel=\"stylesheet\" type=\"text/css\" href=\"$CFG->wwwroot$stylesheet\" />";
+        }
+        return implode("\n", $stylesheets);
+    }
 
     public function heading($v = '') {
         return $this->get_set('heading', $v);

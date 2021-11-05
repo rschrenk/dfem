@@ -42,8 +42,11 @@ class dfem_lang {
      * @param component the component to load string of.
      * @param language valid language identifier (e.g. en, de, ...)
      */
-    public static function get_string($verb, $component = 'core', $language = '') {
+    public static function get_string($verb, $component = '', $language = '') {
         global $CFG;
+        if (empty($component)) {
+            $component = 'core';
+        }
 
         if (empty($language)) {
             $language = $CFG->lang_default;
@@ -65,10 +68,10 @@ class dfem_lang {
      */
     private static function load_language($language, $component = 'core') {
         global $CFG;
-        if (!file_exists("$CFG->dirroot/lang/{$language}_{$component}.php")) {
+        if (!file_exists("$CFG->dirroot/lang/{$language}/{$component}.php")) {
             return;
         }
-        require_once("{$CFG->dirroot}/lang/{$language}_{$component}.php");
+        require_once("{$CFG->dirroot}/lang/{$language}/{$component}.php");
         self::$verbs[$language][$component] = $lang;
 
     }
@@ -79,7 +82,7 @@ class dfem_lang {
      */
     public static function set_default($language) {
         global $CFG;
-        if (file_exists("$CFG->dirroot/lang/$language.php")) {
+        if (dir_exists("$CFG->dirroot/lang/$language")) {
             $CFG->lang_default = $language;
         }
     }

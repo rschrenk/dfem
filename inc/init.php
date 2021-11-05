@@ -32,6 +32,6 @@ $PAGE = new \dfem_page();
 $DB = new \dfem_db();
 
 session_start();
-if (empty($_SESSION['userid']) && !defined('LOGIN_PAGE')) {
+if (empty($_SESSION['authid']) && !defined('LOGIN_PAGE')) {
     redirect("/login/index.php");
 }

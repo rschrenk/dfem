@@ -64,11 +64,6 @@ if (!empty($email)) {
         $params = [
             'onetimepassword' => $auth->onetimepassword,
             'proceed_url' => "$CFG->wwwroot/login/index.php?onetimepassword=$auth->onetimepassword",
-            'str_onetimepassword' => get_string('onetimepassword', 'login'),
-            'str_onetimepassword_enter' => get_string('onetimepassword_enter', 'login'),
-            'str_onetimepassword_text' => get_string('onetimepassword_text', 'login'),
-            'str_proceed' => get_string('proceed', 'login'),
-            'str_welcome' => get_string('welcome', 'login'),
         ];
         $mailer->msgHTML($OUTPUT->render_from_template('login/email', $params));
         $mailer->set('Subject', get_string('onetimepassword_subject', 'login'));
@@ -90,11 +85,7 @@ echo $OUTPUT->header();
 
 if (empty($_SESSION['expected_authid'])) {
     $params = [
-        'str_enter_email' => get_string('enter_email', 'login'),
-        'str_email_dummy' => get_string('email_dummy', 'login'),
         'str_proceed' => get_string('proceed', 'login'),
-        'str_welcome' => get_string('welcome', 'login'),
-        'str_welcome_text' => get_string('welcome_text', 'login'),
     ];
     echo $OUTPUT->render_from_template('login/login', $params);
 } elseif (!empty($onetimepassword) && $onetimepassword == $auth->onetimepassword) {
@@ -104,10 +95,6 @@ if (empty($_SESSION['expected_authid'])) {
 } else {
     $params = [
         'passwordcreated' => $auth->passwordcreated,
-        'str_onetimepassword' => get_string('onetimepassword', 'login'),
-        'str_onetimepassword_enter' => get_string('onetimepassword_enter', 'login'),
-        'str_onetimepassword_expired' => get_string('onetimepassword_expired', 'login'),
-        'str_onetimepassword_text' => get_string('onetimepassword_text', 'login'),
         'str_proceed' => get_string('proceed', 'login'),
         'url_login' => $CFG->wwwroot . '/login/index.php',
     ];

@@ -1,16 +1,16 @@
 <div class="persona">
-    <h3>{{str_persona}}</h3>
-    <p>{{str_persona_text}}</p>
+    <h3>{{#str}} persona, persona {{/str}}</h3>
+    <p>{{#str}} persona_text, persona {{/str}}</p>
     <form method="POST" action="">
         <table border="0">
             <tr>
-                <td>{{str_age}}:</td>
+                <td>{{#str}} age, persona {{/str}}:</td>
                 <td>
                     <input name="age" type="number" min="6" max="120" value="{{age}}" />
                 </td>
             </tr>
             <tr>
-                <td>{{str_gender}}:</td>
+                <td>{{#str}} gender, persona {{/str}}:</td>
                 <td>
                     <select name="gender">
                         <option value="">{{str_select}}</option>
@@ -23,7 +23,7 @@
                 </td>
             </tr>
             <tr>
-                <td>{{str_industry}}:</td>
+                <td>{{#str}} industry, persona {{/str}}:</td>
                 <td>
                     <select name="industry">
                         <option value="">{{str_select}}</option>
@@ -36,7 +36,7 @@
                 </td>
             </tr>
             <tr>
-                <td>{{str_academiclevel}}:</td>
+                <td>{{#str}} academiclevel, persona {{/str}}:</td>
                 <td>
                     <select name="academiclevel">
                         <option value="">{{str_select}}</option>
@@ -49,7 +49,7 @@
                 </td>
             </tr>
             <tr>
-                <td>{{str_residual}}:</td>
+                <td>{{#str}} residual, persona {{/str}}:</td>
                 <td>
                     <select name="residual">
                         <option value="">{{str_select}}</option>
@@ -62,7 +62,7 @@
                 </td>
             </tr>
             <tr>
-                <td>{{str_nationality}}:</td>
+                <td>{{#str}} nationality, persona {{/str}}:</td>
                 <td>
                     <select name="nationality">
                         <option value="">{{str_select}}</option>
@@ -75,6 +75,6 @@
                 </td>
             </tr>
         </table>
-        <input type="submit" value="{{str_persona_store}}" />
+        <input type="submit" value="{{#str}} store, persona {{/str}}" />
     </form>
 </div>

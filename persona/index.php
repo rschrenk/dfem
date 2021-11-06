@@ -21,7 +21,7 @@
  */
 //phpinfo();
 
-require_once("config.php");
+require_once("../config.php");
 
 $PAGE->heading(get_string('dfem'));
 $PAGE->title(get_string('dfem'));
@@ -60,11 +60,10 @@ if (!empty(retrieve('age'))) {
 
 foreach ($fields as $field => $subfields) {
     $valid_data[$field] = false;
-    $persona->{"str_$field"} = get_string("persona_$field");
     $persona->{"s_$field"} = [];
     foreach ($subfields as $subfield) {
         $persona->{"s_$field"}[] = (object)[
-            "str_$field" => get_string("persona_{$field}_{$subfield}"),
+            "str_$field" => get_string("{$field}_{$subfield}", "persona"),
             $field => $subfield,
             "selected" => ($persona->{$field} == $subfield) ? 1 : 0,
         ];
@@ -105,8 +104,9 @@ $persona->str_persona_store = get_string('persona_store');
 echo $OUTPUT->header();
 
 if ($allvalid) {
+    echo $OUTPUT->navigation();
     $o = (object) [
-        'msg' => get_string('persona_data_complete'),
+        'msg' => get_string('data_complete', 'persona'),
         'type' => 'success',
         'url' => "$CFG->wwwroot/index.php",
     ];

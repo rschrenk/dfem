@@ -68,15 +68,18 @@ class dfem_lang {
      * @param verb the verb that should be returned in localized language.
      * @param component the component to load string of.
      * @param language valid language identifier (e.g. en, de, ...)
+     * @param params Additional parameters to be replaced in string using {$a} or {$a->param}
      */
-    public static function get_string($verb, $component = '', $language = '') {
+    public static function get_string($verb, $component = '', $language = '', $params = null) {
         global $CFG;
         if (empty($component)) {
             $component = 'core';
         }
-
         if (empty($language)) {
             $language = $CFG->lang_default;
+        }
+        if (is_array($params)) {
+            $params = (object) $params;
         }
         $languages = [ $language, $CFG->lang_fallback];
         foreach ($languages as $language) {
@@ -84,7 +87,17 @@ class dfem_lang {
                 self::load_language($language, $component);
             }
             if (!empty(self::$verbs[$language][$component][$verb])) {
-                return self::$verbs[$language][$component][$verb];
+                $verb = self::$verbs[$language][$component][$verb];
+                if (!empty($params)) {
+                    if (is_object($params)) {
+                        foreach ($params as $param => $val) {
+                            $verb = str_replace('{$a->' . $param . '}', $val, $verb);
+                        }
+                    } else {
+                        $verb = str_replace('{$a}', $params, $verb);
+                    }
+                }
+                return $verb;
             }
         }
     }

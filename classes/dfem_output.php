@@ -39,9 +39,31 @@ class dfem_output {
         return $this->render_from_template('core/footer');
     }
 
-    public function render_from_template($template, $params = []) {
+    public function navigation() {
         global $CFG;
+        $params = [
+            'wwwroot' => $CFG->wwwroot,
+        ];
+        return $this->render_from_template('core/navigation', $params);
+    }
+
+    public function render_from_template($template, $params = null) {
+        global $CFG;
+        if (empty($params)) {
+            $params = (object) [];
+        } else {
+            $params = (object) $params;
+        }
         $m = self::get_mustache_engine();
+        $params->str = function($text, Mustache_LambdaHelper $helper) {
+            $stringdata = array_map('trim', explode(",", $text));
+            if (count($stringdata) < 2) $stringdata[1] = '';
+            if (count($stringdata) < 3) $stringdata[2] = '';
+            if (count($stringdata) < 4) $stringdata[3] = '';
+            else $stringdata[3] = json_decode($stringdata[3]);
+            $str = \dfem_lang::get_string($stringdata[0], $stringdata[1], $stringdata[2], $stringdata[3]);
+            return $helper->render($str);
+        };
         return $m->render($template, $params);
     }
 

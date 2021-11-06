@@ -67,5 +67,6 @@ if (!empty($toolid)) {
     $params->tool = $DB->get_record('tools', [ 'id' => $toolid ]);
 }
 
+echo $OUTPUT->navigation();
 echo $OUTPUT->render_from_template('core/dashboard', $params);
 echo $OUTPUT->footer();

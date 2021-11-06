@@ -2,7 +2,7 @@
 
 <html>
     <head>
-        <title>{{ str_welcome }}</title>
+        <title>{{#str}} welcome, login {{/str}}</title>
     </head>
     <body>
     </body>
@@ -10,11 +10,11 @@
 
 
 <div class="login" style="margin: 50px 100px;">
-    <h3>{{ str_onetimepassword }}</h3>
-    <p>{{ str_onetimepassword_text }}</p>
-    <p>{{ str_onetimepassword_link }}</p>
+    <h3>{{#str}} onetimepassword, login {{/str}}</h3>
+    <p>{{#str}} onetimepassword_text, login {{/str}}</p>
+    <p>{{#str}} onetimepassword_link, login, , { {{onetimepassword}} } {{/str}}</p>
     <p><strong>{{ onetimepassword }}</strong></p>
     <a href="{{ proceed_url }}" target="_blank">
-        {{ str_proceed }}
+        {{#str}} proceed, login {{/str}}
     </a>
 </div>

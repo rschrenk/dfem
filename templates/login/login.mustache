@@ -1,9 +1,9 @@
 <div class="login" style="margin: 50px 100px;">
-    <h3>{{ str_welcome }}</h3>
-    <p>{{ str_welcome_text }}</p>
-    <p>{{ str_enter_email }}</p>
+    <h3>{{#str}} welcome, login {{/str}}</h3>
+    <p>{{#str}} welcome_text, login {{/str}}</p>
+    <p>{{#str}} enter_email, login {{/str}}</p>
     <form method="POST" action="">
-        <input type="email" name="email" placeholder="{{ str_email_dummy }}" />
-        <input type="submit" value="{{ str_proceed }}" />
+        <input type="email" name="email" placeholder="{{#str}} email_dummy, login {{/str}}" />
+        <input type="submit" value="{{#str}} proceed, login {{/str}}" />
     </form>
 </div>

@@ -29,8 +29,8 @@ function get_config($identifier) {
     }
 }
 
-function get_string($identifier, $component = '', $language = '') {
-    return \dfem_lang::get_string($identifier, $component, $language);
+function get_string($identifier, $component = '', $language = '', $params = null) {
+    return \dfem_lang::get_string($identifier, $component, $language, $params);
 }
 
 function redirect($url, $params = []) {
@@ -57,7 +57,7 @@ function require_persona() {
     global $DB;
     $persona = $DB->get_record('personas', [ 'authid' => $_SESSION['authid' ]]);
     if (empty($persona->id)) {
-        redirect("/persona.php");
+        redirect("/persona/index.php");
     }
     return $persona;
 }

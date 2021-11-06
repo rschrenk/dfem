@@ -37,7 +37,7 @@ $PAGE->heading(get_string('logout', 'login'));
 $PAGE->title(get_string('logout', 'login'));
 
 echo $OUTPUT->header();
-
+echo $OUTPUT->navigation();
 $params = [
     'str_proceed' => get_string('proceed', 'login'),
     'str_logout' => get_string('logout', 'login'),

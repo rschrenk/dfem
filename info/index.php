@@ -20,18 +20,16 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once("{$CFG->dirroot}/inc/functions.php");
-require_once("{$CFG->dirroot}/classes/dfem_db.php");
-require_once("{$CFG->dirroot}/classes/dfem_exception.php");
-require_once("{$CFG->dirroot}/classes/dfem_helper.php");
-require_once("{$CFG->dirroot}/classes/dfem_lang.php");
-require_once("{$CFG->dirroot}/classes/dfem_mailer.php");
-require_once("{$CFG->dirroot}/classes/dfem_output.php");
-require_once("{$CFG->dirroot}/classes/dfem_page.php");
+require_once("../config.php");
 
-\dfem_lang::init();
-$OUTPUT = new \dfem_output();
-$PAGE = new \dfem_page();
-$DB = new \dfem_db();
+$PAGE->heading(get_string('about', 'info'));
+$PAGE->title(get_string('about', 'info'));
 
-session_start();
+echo $OUTPUT->header();
+if (is_loggedin()) {
+    echo $OUTPUT->navigation();
+}
+
+$params = [];
+echo $OUTPUT->render_from_template('info/about', $params);
+echo $OUTPUT->footer();

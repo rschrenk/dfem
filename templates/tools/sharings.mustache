@@ -1,0 +1,36 @@
+<div class="tools sharings">
+    <h3>{{tool.name}}</h3>
+    <a href="{{wwwroot}}/tools/tool.php?id={{tool.id}}" class="btn btn-primary">
+        {{#str}} do_your_own_estimation_of, results {{/str}} {{tool.name}}
+    </a>
+    <div>
+        <h4>{{#str}} sharings, results {{/str}}</h4>
+
+        <table border="0">
+            {{#sharings}}
+                <tr{{#timeexpired}} style="color: red"{{/timeexpired}}>
+                    <td>
+                        <a href="{{wwwroot}}/tools/results.php?s={{s}}" target="_blank">
+                            {{s}}
+                        </a>
+                    </td>
+                    <td>
+                        {{#timeexpired}}
+                            {{#str}} invalid, results {{/str}}
+                        {{/timeexpired}}
+                        {{^timeexpired}}
+                            <a href="{{wwwroot}}/tools/share.php?id={{estimation.id}}&revoke={{s}}" class="btn">
+                                revoke
+                            </a>
+                        {{/timeexpired}}
+                    </td>
+                </tr>
+            {{/sharings}}
+        </table>
+        <a href="{{wwwroot}}/tools/share.php?id={{estimation.id}}&createshare=1" class="btn btn-primary">
+            {{#str}} share_add, results {{/str}}
+        </a>
+    </div>
+
+
+</div>

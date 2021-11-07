@@ -1,6 +1,9 @@
 // out: ../style/main.css, sourcemap: false, compress: true
-a {
+a, input {
     &.btn {
+        font-weight: bold;
+        font-size: 16px;
+        font-family: serif;
         display: inline-block;
         padding: 5px 20px;
         text-align: center;
@@ -15,8 +18,43 @@ a {
     }
 }
 
-.dashboard {
-    .tools {
+.tools {
+    &.results {
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+
+            &>div {
+                width: 33%;
+                min-width: 250px;
+                max-width: 500px;
+
+                margin: 5px;
+                padding: 0 10px;
+                border-radius: 15px;
+
+                th {
+                    line-height: 2em;
+                    text-align: left;
+                    vertical-align: middle;
+                }
+
+                &.mine {
+                    background-color: rgba(30, 168, 79, 0.1);
+                }
+                &.comparison {
+                    background-color: rgba(56, 117, 18, 0.1);
+                }
+                &.mean {
+                    background-color: rgba(71, 219, 18, 0.1);
+                }
+            }
+
+        }
+    }
+
+    &>.tools {
         .toolcategory {
             font-weight: bold;
             text-align: center;
@@ -68,11 +106,15 @@ a {
     border: 1px solid black;
     border-radius: 25px;
     &.alert-danger {
-        background-color: lightred;
+        background-color: rgba(255,0,0,0.2);
         border-color: darkred;
     }
+    &.alert-info {
+        background-color: rgba(0,0,255,0.2);
+        border-color: blue;
+    }
     &.alert-success {
-        background-color: lightgreen;
+        background-color: rgba(0,255,0,0.2);
         border-color: green;
     }
 }

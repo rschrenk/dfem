@@ -20,25 +20,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once("config.php");
+if (!defined('DFEM_INTERNAL')) die();
 
-$persona = require_persona();
-
-$toolid = retrieve('id');
-if (!empty($toolid)) {
-    $tool = $DB->get_record('tools', [ 'id' => $toolid ]);
-    if (empty($tool->id)) {
-        redirect("/index.php");
-    }
-}
-
-$PAGE->heading($tool->name);
-$PAGE->title(get_string($tool->name));
-
-$tool->estimation = $DB->get_record('estimations', [ 'authid' => $_SESSION['authid'], 'toolid' => $tool->id]);
-if (!empty($tool->estimation->id)) {
-    $tool->ratings = $DB->get_record('ratings', [ 'estimationid' => $tool->estimation->id ]);
-}
-echo $OUTPUT->header();
-echo $OUTPUT->render_from_template('core/tool', $tool);
-echo $OUTPUT->footer();
+$lang['about'] = 'About digital footprints';
+$lang['learn_more'] = 'Learn more';

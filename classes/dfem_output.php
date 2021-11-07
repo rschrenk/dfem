@@ -30,7 +30,7 @@ class dfem_output {
         $params = [
             'heading' => $PAGE->heading(),
             'title' => $PAGE->title(),
-            'stylesheets' => $PAGE->get_stylesheets(),
+            'elements' => $PAGE->get_additional_header_elements(),
         ];
         return $this->render_from_template('core/header', $params);
     }
@@ -64,6 +64,27 @@ class dfem_output {
             $str = \dfem_lang::get_string($stringdata[0], $stringdata[1], $stringdata[2], $stringdata[3]);
             return $helper->render($str);
         };
+        $params->userdate = function($text, Mustache_LambdaHelper $helper) {
+            $stringdata = array_map('trim', explode(",", $text));
+            print_r($stringdata);
+            $str = date($stringdata[1], $stringdata[0]);
+            return $helper->render($str);
+        };
+        $params->pix = function($text, Mustache_LambdaHelper $helper) {
+            $stringdata = array_map('trim', explode(",", $text));
+            $relativepath = $stringdata[0];
+            $filetypes = [ 'png', 'jpeg', 'jpg', 'gif', 'svg' ];
+            foreach ($filetypes as $filetype) {
+                if (file_exists("$CFG->dirroot/$relativepath.$filetype")) {
+                    $alt = (!empty($stringdata[1])) ? $stringdata[1] : "";
+                    $image = "<img src=\"$CFG->dirroot/$relativepath.$filetype\" alt=\"$alt\" />";
+                    return $helper->render($image);
+                }
+            }
+
+        };
+        $params->CFG = $CFG;
+        $params->uniqid = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 10)), 0, 10);
         return $m->render($template, $params);
     }
 

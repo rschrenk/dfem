@@ -20,8 +20,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-define('LOGIN_PAGE', 1);
-
 require_once("../config.php");
 
 if (!empty($_SESSION['authid'])) {
@@ -46,6 +44,8 @@ if (!empty($email)) {
             'email_hashed' => $DB->salt($email),
             'onetimepassword' => substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 7)), 0, 7),
             'passwordcreated' => time(),
+            'timecreated' => time(),
+            'timelastlogin= '> time(),
         ];
         $auth->id = $DB->insert_record('authentications', $auth);
     } else {
@@ -56,7 +56,6 @@ if (!empty($email)) {
 
     if (!empty($auth) && !empty($auth->id)) {
         $_SESSION['expected_authid'] = $auth->id;
-
 
         $mailer = new \dfem_mailer();
 
@@ -76,6 +75,7 @@ if (!empty($_SESSION['expected_authid'])) {
     if ($auth->passwordcreated < (time() - 60*5)) {
         $auth->onetimepassword = '';
         $auth->passwordcreated = 0;
+        $auth->timelastlogin = time();
         $DB->update_record('authentications', $auth);
         unset($_SESSION['expected_authid']);
     }

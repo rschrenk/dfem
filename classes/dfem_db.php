@@ -48,10 +48,9 @@ class dfem_db {
     public function get_record($table, $conditions = [], $fields = '*') {
         $results = array_values($this->get_records($table, $conditions, $fields, 0, 2));
         if (count($results) > 1) {
-            // throw error?
+            throw new \dfem_exception(get_string('multiple_found_single_expected', 'db'));
         }
         if (count($results) == 1) {
-            // return first occurrence.
             return $results[0];
         }
     }
@@ -80,6 +79,16 @@ class dfem_db {
         }
 
         return $results;
+    }
+    public function get_record_sql($sql, $params = []) {
+        $results = array_values($this->get_records_sql($sql, $params));
+        if (count($results) > 1) {
+            // throw error?
+        }
+        if (count($results) == 1) {
+            // return first occurrence.
+            return $results[0];
+        }
     }
     public function get_records_sql($sql, $params = []) {
         $sql = str_replace('{prefix}', $this->prefix, $sql);

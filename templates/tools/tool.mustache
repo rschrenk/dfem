@@ -1,0 +1,39 @@
+<div class="tools tool">
+    <h3>{{name}}</h3>
+    {{#stored}}
+        <p class="alert alert-success">
+            {{#str}} data_was_stored, tools {{/str}}
+        </p>
+    {{/stored}}
+    <form method="POST" action="">
+        <input type="hidden" name="id" value="{{id}}" />
+        <input type="hidden" name="formsent" value="1" />
+        <table border="0">
+            {{#fieldtypes}}
+                <tr>
+                    <th colspan="2">{{label}}</th>
+                </tr>
+                {{#fields}}
+                    <tr>
+                        <td>{{label}}</td>
+                        <td>
+                            <input type="checkbox" name="{{field}}"
+                                {{#enabled}} checked="checked" {{/enabled}} />
+                        </td>
+                    </tr>
+                {{/fields}}
+            {{/fieldtypes}}
+            <tr>
+                <th>
+                    <input type="submit" value="{{#str}} send, core {{/str}}" class="btn btn-primary" />
+                    {{#estimation.id}}
+                        <a href="{{CFG.wwwroot}}/tools/results.php?id={{estimation.id}}" class="btn btn-secondary">
+                            {{#str}} show_tool_results, tools {{/str}}
+                        </a>
+                    {{/estimation.id}}
+                </th>
+            </tr>
+        </table>
+    </form>
+
+</div>

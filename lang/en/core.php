@@ -25,4 +25,6 @@ if (!defined('DFEM_INTERNAL')) die();
 $lang['dfem'] = 'DFEM';
 $lang['dfem_long'] = 'Digital Footprint Estimation Model';
 
+$lang['permission_denied'] = 'Permission denied';
+$lang['send'] = 'Send';
 $lang['tools'] = 'Tools';

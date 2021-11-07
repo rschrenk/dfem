@@ -24,6 +24,8 @@ define('LOGIN_PAGE', 1);
 
 require_once("../config.php");
 
+require_login();
+
 $confirmed = retrieve('confirmed');
 if (!empty($confirmed)) {
     unset($_SESSION['authid']);

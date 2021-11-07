@@ -23,7 +23,7 @@
 if (!defined('DFEM_INTERNAL')) die();
 
 $lang['persona'] = 'Persona';
-$lang['data_complete'] = 'Thank you for creating the persona. You can now proceed to the DFEM Dashboard.';
+$lang['data_complete'] = 'Thank you for creating the persona. You can now proceed to the DFEM tools list.';
 $lang['text'] = 'As this is still a scientific project, we raise some demographic data for a deeper understanding of digital footprints. Please note, that this data will be kept confidential and anonymity is assured. All your data is only linked to your hashed and salted E-Mailaddress, which can not be re-identified without significant criminal energy. However, we only raise very generic data to protect your privacy anyway.';
 $lang['age'] = 'Age';
 $lang['gender'] = 'Gender';

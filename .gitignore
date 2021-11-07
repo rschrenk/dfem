@@ -1,3 +1,4 @@
 config.php
 .remote-sync.json
 vendor
+node_modules

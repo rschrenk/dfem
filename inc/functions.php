@@ -33,6 +33,17 @@ function get_string($identifier, $component = '', $language = '', $params = null
     return \dfem_lang::get_string($identifier, $component, $language, $params);
 }
 
+function has_persona() {
+    if (!is_loggedin()) return;
+    global $DB;
+    $persona = $DB->get_record('personas', [ 'authid' => $_SESSION['authid' ]]);
+    return (!empty($persona->id));
+}
+
+function is_loggedin() {
+    return !empty($_SESSION['authid']);
+}
+
 function redirect($url, $params = []) {
     global $CFG;
     $strparams = '';
@@ -51,6 +62,12 @@ function redirect($url, $params = []) {
     }
     header("Location: {$CFG->wwwroot}$url$strparams");
     exit;
+}
+
+function require_login() {
+    if (!is_loggedin()) {
+        redirect("/login/index.php");
+    }
 }
 
 function require_persona() {

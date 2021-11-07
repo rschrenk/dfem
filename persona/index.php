@@ -19,9 +19,10 @@
  * @author     Robert Schrenk
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-//phpinfo();
 
 require_once("../config.php");
+
+require_login();
 
 $PAGE->heading(get_string('dfem'));
 $PAGE->title(get_string('dfem'));
@@ -33,7 +34,7 @@ if (empty($persona) || empty($persona->id)) {
 $valid_data = [];
 $fields = [
         'age' => [],
-        'academiclevel' => [ 'hsd', 'alevel', 'b', 'm', 'p' ],
+        'academiclevel' => [ 'gcse', 'hsd', 'b', 'm', 'p' ],
         'gender' => [ 'd', 'f', 'm' ],
         // Based on the list of the Austrian AMS (https://www.berufslexikon.at/bereiche-branchen/)
         'industry' => [
@@ -52,8 +53,11 @@ if (!empty(retrieve('age'))) {
     }
     if (empty($persona->id)) {
         $persona->authid = $_SESSION['authid'];
+        $persona->timecreated = time();
+        $persona->timemodified = time();
         $persona->id = $DB->insert_record('personas', $persona);
     } else {
+        $persona->timemodified = time();
         $DB->update_record('personas', $persona);
     }
 }
@@ -113,5 +117,5 @@ if ($allvalid) {
     echo $OUTPUT->render_from_template('core/alert', $o);
 }
 
-echo $OUTPUT->render_from_template('core/persona', $persona);
+echo $OUTPUT->render_from_template('persona/persona', $persona);
 echo $OUTPUT->footer();

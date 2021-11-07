@@ -20,18 +20,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once("{$CFG->dirroot}/inc/functions.php");
-require_once("{$CFG->dirroot}/classes/dfem_db.php");
-require_once("{$CFG->dirroot}/classes/dfem_exception.php");
-require_once("{$CFG->dirroot}/classes/dfem_helper.php");
-require_once("{$CFG->dirroot}/classes/dfem_lang.php");
-require_once("{$CFG->dirroot}/classes/dfem_mailer.php");
-require_once("{$CFG->dirroot}/classes/dfem_output.php");
-require_once("{$CFG->dirroot}/classes/dfem_page.php");
+if (!defined('DFEM_INTERNAL')) die();
 
-\dfem_lang::init();
-$OUTPUT = new \dfem_output();
-$PAGE = new \dfem_page();
-$DB = new \dfem_db();
-
-session_start();
+$lang['multiple_found_single_expected'] = 'Multiple records have been found, but only one was expected';

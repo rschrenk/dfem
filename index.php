@@ -25,48 +25,7 @@ require_once("config.php");
 $PAGE->heading(get_string('dfem'));
 $PAGE->title(get_string('dfem'));
 
-$persona = require_persona();
+require_login();
+require_persona();
 
-echo $OUTPUT->header();
-$params = (object) [
-    'toolcategories' => [],
-    'tool' => '',
-];
-
-$sql = "SELECT t.*, tc.category
-            FROM {prefix}tools t, {prefix}toolcategories tc
-            WHERE t.toolcategory = tc.id
-            ORDER BY tc.category ASC, t.archetype ASC, t.name ASC";
-$tools = $DB->get_records_sql($sql);
-$toolcategory = ''; $archetype = ''; $catindex = -1; $archeindex = -1;
-foreach ($tools as $tool) {
-    if ($tool->category != $toolcategory) {
-        $catindex++;
-        $toolcategory = $tool->category;
-        $params->toolcategories[$catindex] = (object) [
-            'category' => $toolcategory,
-            'archetypes' => [],
-        ];
-        $archetype = '';
-        $archeindex = -1;
-    }
-    if ($archetype != $tool->archetype) {
-        $archeindex++;
-        $archetype = $tool->archetype;
-        $params->toolcategories[$catindex]->archetypes[$archeindex] = (object) [
-            'archetype' => $archetype,
-            'tools' => [],
-        ];
-    }
-    $tool->toolurl = "$CFG->wwwroot/tool.php?id=$tool->id";
-    $params->toolcategories[$catindex]->archetypes[$archeindex]->tools[] = $tool;
-}
-
-$toolid = retrieve('id');
-if (!empty($toolid)) {
-    $params->tool = $DB->get_record('tools', [ 'id' => $toolid ]);
-}
-
-echo $OUTPUT->navigation();
-echo $OUTPUT->render_from_template('core/dashboard', $params);
-echo $OUTPUT->footer();
+redirect("/tools/index.php");

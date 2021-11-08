@@ -67,7 +67,7 @@ class dfem_helper {
         ];
         foreach ($model as $field => $calcs) {
             for ($a = 0; $a < count($calcs); $a++) {
-                $col = $cols[$a];
+                $col = self::$cols[$a];
                 if (!empty($tool->rating->{$field}) && !empty($calcs[$a])) {
                     $tool->result->{$col} += $calcs[$a];
                 }

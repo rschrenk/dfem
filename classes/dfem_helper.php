@@ -23,9 +23,12 @@
 if (!defined('DFEM_INTERNAL')) die();
 
 class dfem_helper {
+    private static $cols = [
+                        'uncontrollability', 'involuntariness', 'vulnerability',
+                        'disparity', 'endangerment'
+                    ];
     public static function calc_result($tool) {
-        $cols = [ 'control', 'intention', 'protection', 'objective', 'fortune'];
-        foreach ($cols as $col) {
+        foreach (self::$cols as $col) {
             $tool->result->{$col} = null;
         }
         $model = [
@@ -75,32 +78,31 @@ class dfem_helper {
 
     public static function calc_result_classes($result) {
         global $CFG;
-        $cols = [ 'control', 'intention', 'protection', 'objective', 'fortune'];
         $resultclasses = [];
-        foreach ($cols as $col) {
+        foreach (self::$cols as $col) {
             $class = '';
             switch ($col) {
-                case 'control':
+                case self::$cols[0]:
                     if ($result->$col <= -7) { $class = 'A'; }
                     if ($result->$col >= -6 && $result->$col <= 6) { $class = 'B'; }
                     if ($result->$col >=  7) { $class = 'C'; }
                 break;
-                case 'intention':
+                case self::$cols[1]:
                     if ($result->$col <= -4) { $class = 'A'; }
                     if ($result->$col >= -3 && $result->$col <= 3) { $class = 'B'; }
                     if ($result->$col >=  4) { $class = 'C'; }
                 break;
-                case 'protection':
+                case self::$cols[2]:
                     if ($result->$col <= -2) { $class = 'A'; }
                     if ($result->$col >= -1 && $result->$col <= 12) { $class = 'B'; }
                     if ($result->$col >=  13) { $class = 'C'; }
                 break;
-                case 'objective':
+                case self::$cols[3]:
                     if ($result->$col <= -2) { $class = 'A'; }
                     if ($result->$col >= -1 && $result->$col <= 2) { $class = 'B'; }
                     if ($result->$col >=  3) { $class = 'C'; }
                 break;
-                case 'fortune':
+                case self::$cols[4]:
                     if ($result->$col <=  3) { $class = 'A'; }
                     if ($result->$col >=  4 && $result->$col <= 12) { $class = 'B'; }
                     if ($result->$col >=  13) { $class = 'C'; }
@@ -163,9 +165,8 @@ class dfem_helper {
 
     public static function get_mean_data($toolid, $excludeestimationid = 0) {
         global $DB;
-        $cols = [ 'control', 'intention', 'protection', 'objective', 'fortune'];
         $avgcols = [];
-        foreach ($cols as $col) {
+        foreach (self::$cols as $col) {
             $avgcols[] = "AVG($col) AS $col";
         }
         $avgcols = implode(",", $avgcols);
@@ -183,30 +184,36 @@ class dfem_helper {
 
     /**
      * Create a data-array for the use of chart.js.
-     * @param type either for my own result ('mine'), mean results ('mean'), 'minimum' or 'maximum'
+     * @param type either for my own result ('mine'), mean results ('mean'), 'labels', 'minimum' or 'maximum'
      * @param result the result object to gather this data from.
      * @param estimation the estimation this is for (for type 'mean').
      */
     public static function get_resultdata($type, $result, $estimation = null) {
         global $DB;
+        if ($type == 'labels') {
+            $labels = [];
+            foreach (self::$cols as $col) {
+                $labels[] = "'" . get_string($col, 'results') . "'";
+            }
+            return implode(",",$labels);
+        }
         if ($type == 'maximum') {
             return implode(",", [  20,  10,  25,  5, 20]);
         }
         if ($type == 'minimum') {
             return implode(",", [ -20, -10, -15, -5, -5]);
         }
-        $cols = [ 'control', 'intention', 'protection', 'objective', 'fortune'];
         $resultdata = [];
         switch ($type) {
             case 'mine':
-                foreach ($cols as $col) {
+                foreach (self::$cols as $col) {
                     $resultdata[] = $result->$col;
                 }
             break;
             case 'mean':
                 $avg = self::get_mean_data($estimation->toolid, $estimation->id);
                 if (!empty($avg->id)) {
-                    foreach ($cols as $col) {
+                    foreach (self::$cols as $col) {
                         $resultdata[] = round($avg->{$col});
                     }
                 }
@@ -252,12 +259,10 @@ class dfem_helper {
         if (empty($tool->result) || empty($tool->result->id)) {
             $tool->result = (object) [
                 'estimationid' => $tool->estimation->id,
-                'control' => NULL,
-                'intention' => NULL,
-                'protection' => NULL,
-                'objective' => NULL,
-                'fortune' => NULL,
             ];
+            foreach (self::$cols as $col) {
+                $tool->result->{$col} = null;
+            }
             $tool->result->id = $DB->insert_record('results', $tool->result);
         }
 

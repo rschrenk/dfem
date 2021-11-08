@@ -40,28 +40,28 @@ $lang['share'] = 'Share your result';
 $lang['share_add'] = 'Add another share';
 $lang['sharings'] = 'Shares for this tool';
 
-$lang['control'] = 'Control';
-$lang['intention'] = 'Intention';
-$lang['protection'] = 'Protection';
-$lang['objective'] = 'Objective';
-$lang['fortune'] = 'Fortune';
+$lang['uncontrollability'] = 'Uncontrollability';
+$lang['involuntariness'] = 'Involuntariness';
+$lang['vulnerability'] = 'Vulnerability';
+$lang['disparity'] = 'Disparity';
+$lang['endangerment'] = 'Endangerment';
 
-$lang['control_A'] = 'This software seems balanced according the creation of digital footprints and your control over data. Although digital footprints may be created, you can always pull the emergency brake.';
-$lang['control_B'] = 'Be aware of digital footprints. There is no guarantee that they will not fall into the wrong hands.';
-$lang['control_C'] = 'Caution is recommended. When using this software, there is hardly any way to control what happens to the data.';
+$lang['uncontrollability_A'] = 'This software seems balanced according the creation of digital footprints and your control over data. Although digital footprints may be created, you can always pull the emergency brake.';
+$lang['uncontrollability_B'] = 'Be aware of digital footprints. There is no guarantee that they will not fall into the wrong hands.';
+$lang['uncontrollability_C'] = 'Caution is recommended. When using this software, there is hardly any way to control what happens to the data.';
 
-$lang['intention_A'] = 'With this software, only data you want to expose, is recorded. You seem to be on the safe side.';
-$lang['intention_B'] = 'Although this software seems serious, it could happen that data is recorded to track you without your knowledge.';
-$lang['intention_C'] = 'Attention, data is recorded here that you may not even be aware of. This allows deep insights into your personality.';
+$lang['involuntariness_A'] = 'With this software, only data you want to expose, is recorded. You seem to be on the safe side.';
+$lang['involuntariness_B'] = 'Although this software seems serious, it could happen that data is recorded to track you without your knowledge.';
+$lang['involuntariness_C'] = 'Attention, data is recorded here that you may not even be aware of. This allows deep insights into your personality.';
 
-$lang['protection_A'] = 'This software offers a high level of protection of your data. You do not need to worry about this.';
-$lang['protection_B'] = 'It is not entirely clear whether your data is sufficiently protected. It might be advisable to ask for additional information.';
-$lang['protection_C'] = 'If you use this software, you must practically assume that your data will be transferred to countries that do not offer an adequate level of protection.';
+$lang['vulnerability_A'] = 'This software offers a high level of protection of your data. You do not need to worry about this.';
+$lang['vulnerability_B'] = 'It is not entirely clear whether your data is sufficiently protected. It might be advisable to ask for additional information.';
+$lang['vulnerability_C'] = 'If you use this software, you must practically assume that your data will be transferred to countries that do not offer an adequate level of protection.';
 
-$lang['objective_A'] = 'The service providers of this software use the data to offer you a better product quality.';
-$lang['objective_B'] = 'It seems as if the provider of this software wants to improve the software with your data, but at the same time wants to open up additional business areas with your data.';
-$lang['objective_C'] = 'It\'s almost obvious that your data is mainly used as a basis for a business model, and would actually not be necessary for the use of the software itself. Be careful, you pay with your data!';
+$lang['disparity_A'] = 'The service providers of this software use the data to offer you a better product quality.';
+$lang['disparity_B'] = 'It seems as if the provider of this software wants to improve the software with your data, but at the same time wants to open up additional business areas with your data.';
+$lang['disparity_C'] = 'It\'s almost obvious that your data is mainly used as a basis for a business model, and would actually not be necessary for the use of the software itself. Be careful, you pay with your data!';
 
-$lang['fortune_A'] = 'This application seems to be very beneficial for your future. Since no dangers are recognizable here, nothing speaks against its use.';
-$lang['fortune_B'] = 'It is not entirely clear whether the digital artifacts you leave here will not harm you at some point. You should therefore be careful.';
-$lang['fortune_C'] = 'Caution is required! You may still feel sorry for the digital footprints you leave here.';
+$lang['endangerment_A'] = 'This application seems to be very beneficial for your future. Since no dangers are recognizable here, nothing speaks against its use.';
+$lang['endangerment_B'] = 'It is not entirely clear whether the digital artifacts you leave here will not harm you at some point. You should therefore be careful.';
+$lang['endangerment_C'] = 'Caution is required! You may still feel sorry for the digital footprints you leave here.';

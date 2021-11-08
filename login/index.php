@@ -46,7 +46,7 @@ if (!empty($email)) {
             'onetimepassword' => substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 7)), 0, 7),
             'passwordcreated' => time(),
             'timecreated' => time(),
-            'timelastlogin= '> time(),
+            'timelastlogin' => time(),
         ];
         $auth->id = $DB->insert_record('authentications', $auth);
     } else {

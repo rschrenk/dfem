@@ -1,7 +1,7 @@
 <div class="tools results">
     <h3>{{tool.name}}</h3>
     {{^isshared}}
-    <a href="{{wwwroot}}/tools/index.php?id={{estimation.id}}" class="btn btn-primary">
+    <a href="{{wwwroot}}/tools/index.php?id={{tool.id}}" class="btn btn-primary">
         {{#str}} back, results {{/str}}
     </a>
     {{/isshared}}
@@ -153,25 +153,27 @@ datamaximum.forEach(function(item, index, arr) {
 });
 
 const data = {
-    labels: [
-        '{{#str}} control, results {{/str}}',
-        '{{#str}} intention, results {{/str}}',
-        '{{#str}} protection, results {{/str}}',
-        '{{#str}} objective, results {{/str}}',
-        '{{#str}} fortune, results {{/str}}',
-    ],
+    labels: [{{resultdata_labels}}],
     datasets: [{
         label: '{{#str}} result_mine, results {{/str}}',
         data: datamine,
         fill: true,
         backgroundColor: CHART_COLORS.t_purple,
         borderColor: CHART_COLORS.purple,
+        pointBackgroundColor: CHART_COLORS.purple,
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: CHART_COLORS.purple,
     }, {
         label: '{{#str}} result_mean, results {{/str}}',
         data: datamean,
         fill: true,
         backgroundColor: CHART_COLORS.t_orange,
         borderColor: CHART_COLORS.orange,
+        pointBackgroundColor: CHART_COLORS.orange,
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: CHART_COLORS.orange,
     }, /*{
         label: '{{#str}} result_minimum, results {{/str}}',
         data: dataminimum,
@@ -197,12 +199,24 @@ const chart = new Chart(ctx, {
             }
         },
         scales: {
+            display: true,
             r: {
                 angleLines: {
-                    display: false
+                    display: true
                 },
                 min: 0,
                 max: 100,
+            }
+        },
+        responsive: true,
+        plugins: {
+            title: {
+                display: true,
+                text: '{{#str}} dfem {{/str}}: {{tool.name}}'
+            },
+            subtitle: {
+                display: false,
+                text: '{{CFG.wwwroot}}'
             }
         }
     }

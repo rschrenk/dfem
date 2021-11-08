@@ -74,6 +74,7 @@ $params = (object) [
     'result' => $result,
     'resultclasses' => \dfem_helper::calc_result_classes($result),
     'resultmeanclasses' => \dfem_helper::calc_result_mean_classes($estimation),
+    'resultdata_labels' => \dfem_helper::get_resultdata('labels', $result),
     'resultdata_maximum' => \dfem_helper::get_resultdata('maximum', $result),
     'resultdata_minimum' => \dfem_helper::get_resultdata('minimum', $result),
     'resultdata_mine' => \dfem_helper::get_resultdata('mine', $result),

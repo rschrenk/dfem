@@ -40,14 +40,14 @@ $fields = [
         'industry' => [
             'agriculture', 'buildingtechnology', 'chemistry', 'commerce',
             'engineering', 'environment', 'fashion', 'homecare',
-            'media', 'mining', 'office',
+            'mechanical', 'media', 'mining', 'office',
             'social', 'tourism', 'science'
         ],
         'residual' => [],
         'nationality' => [],
 ];
 
-if (!empty(retrieve('age'))) {
+if (!empty(retrieve('formsent'))) {
     foreach ($fields as $field => $subfields) {
         $persona->{$field} = retrieve($field);
     }
@@ -107,14 +107,18 @@ $persona->str_persona_store = get_string('persona_store');
 
 echo $OUTPUT->header();
 
-if ($allvalid) {
-    echo $OUTPUT->navigation();
+if (!$allvalid) {
     $o = (object) [
-        'msg' => get_string('data_complete', 'persona'),
-        'type' => 'success',
-        'url' => "$CFG->wwwroot/index.php",
+        'msg' => get_string('data_incomplete', 'persona', '', [ 'wwwroot' => $CFG->wwwroot ]),
+        'type' => 'danger',
     ];
     echo $OUTPUT->render_from_template('core/alert', $o);
+    $o = (object) [
+        'langselector' => \dfem_lang::lang_selector(),
+    ];
+    echo $OUTPUT->render_from_template('core/langselector_withalert', $o);
+} else {
+    echo $OUTPUT->navigation();
 }
 
 echo $OUTPUT->render_from_template('persona/persona', $persona);

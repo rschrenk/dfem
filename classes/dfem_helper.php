@@ -23,7 +23,6 @@
 if (!defined('DFEM_INTERNAL')) die();
 
 class dfem_helper {
-
     public static function calc_result($tool) {
         $cols = [ 'control', 'intention', 'protection', 'objective', 'fortune'];
         foreach ($cols as $col) {
@@ -259,7 +258,7 @@ class dfem_helper {
                 'objective' => NULL,
                 'fortune' => NULL,
             ];
-            $DB->insert_record('results', $tool->result);
+            $tool->result->id = $DB->insert_record('results', $tool->result);
         }
 
         $tool = self::calc_result($tool);

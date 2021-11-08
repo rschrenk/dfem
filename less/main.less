@@ -50,10 +50,28 @@ a, input {
                     background-color: rgba(71, 219, 18, 0.1);
                 }
             }
+        }
+        .trafficlight {
+            img {
+                vertical-align: middle;
+            }
+            p, div {
+                margin: 0px;
+                padding: 0px;
 
+                height: 2em;
+            }
         }
     }
 
+    &>.tools {
+        list-style-type: none;
+
+        ul {
+            list-style-type: none;
+        }
+    }
+    /*
     &>.tools {
         .toolcategory {
             font-weight: bold;
@@ -71,18 +89,11 @@ a, input {
             text-decoration: none;
         }
     }
+    */
 }
 
 .onetimepassword {
     .countdown {
-        position: fixed;
-        right: 0px;
-        top: 0px;
-        background-color: black;
-        border-color: lightgray;
-        color: lightgray;
-        font-size: 50px;
-
         &.expired {
             background-color: darkred;
         }
@@ -116,5 +127,8 @@ a, input {
     &.alert-success {
         background-color: rgba(0,255,0,0.2);
         border-color: green;
+    }
+    &.alert-inline {
+        display: inline-block;
     }
 }

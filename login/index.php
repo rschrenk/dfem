@@ -80,20 +80,26 @@ if (!empty($_SESSION['expected_authid'])) {
         unset($_SESSION['expected_authid']);
     }
 }
+$langselector = \dfem_lang::lang_selector();
 
 echo $OUTPUT->header();
 
 if (empty($_SESSION['expected_authid'])) {
     $params = [
+        'langselector' => $langselector,
         'str_proceed' => get_string('proceed', 'login'),
     ];
     echo $OUTPUT->render_from_template('login/login', $params);
 } elseif (!empty($onetimepassword) && $onetimepassword == $auth->onetimepassword) {
+    if (!empty($auth->language)) {
+        \dfem_lang::set_default($auth->language);
+    }
     $_SESSION['authid'] = $auth->id;
     unset($_SESSION['expected_authid']);
     redirect('/index.php');
 } else {
     $params = [
+        'langselector' => $langselector,
         'passwordcreated' => $auth->passwordcreated,
         'str_proceed' => get_string('proceed', 'login'),
         'url_login' => $CFG->wwwroot . '/login/index.php',

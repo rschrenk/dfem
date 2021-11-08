@@ -35,3 +35,11 @@ $PAGE = new \dfem_page();
 $DB = new \dfem_db();
 
 session_start();
+
+if (!empty($_SESSION['lang_default'])) {
+    \dfem_lang::set_default($_SESSION['lang_default']);
+}
+
+if (!empty(retrieve("setlanguage"))) {
+    \dfem_lang::set_default(retrieve("setlanguage"));
+}

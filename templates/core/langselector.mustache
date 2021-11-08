@@ -1,0 +1,8 @@
+
+<form method="POST" action="" id="langselector-{{uniqid}}" style="display: inline;">
+    <select name="setlanguage" onchange="document.getElementById('langselector-{{uniqid}}').submit();">
+        {{#languages}}
+            <option value="{{lang}}"{{#selected}} selected="selected"{{/selected}}>{{caption}}</option>
+        {{/languages}}
+    </select>
+</form>

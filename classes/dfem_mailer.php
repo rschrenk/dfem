@@ -49,6 +49,9 @@ class dfem_mailer {
             $this->phpmailer->SMTPAuth = true;
             $this->phpmailer->Port = $CFG->phpmailer['port'];
             $this->phpmailer->setFrom($CFG->phpmailer['from'], $CFG->phpmailer['fromn']);
+
+            $this->phpmailer->CharSet   = 'UTF-8';
+            $this->phpmailer->Encoding  = 'base64';
         } catch(Exception $e) {
             echo "PHPMailer error: " . $this->phpmailer->ErrorInfo;
         }

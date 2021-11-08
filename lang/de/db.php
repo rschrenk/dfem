@@ -22,13 +22,4 @@
 
 if (!defined('DFEM_INTERNAL')) die();
 
-$lang['lang'] = 'English';
-
-$lang['dfem'] = 'DFEM';
-$lang['dfem_long'] = 'Digital Footprint Estimation Model';
-
-$lang['language_unkown'] = 'The language {$a} is unknown!';
-
-$lang['permission_denied'] = 'Permission denied';
-$lang['send'] = 'Send';
-$lang['tools'] = 'Tools';
+$lang['multiple_found_single_expected'] = 'Mehrere Datensätze wurden gefunden, obwohl nur ein Datensatz erwartet wurde!';

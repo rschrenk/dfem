@@ -42,6 +42,7 @@ class dfem_output {
     public function navigation() {
         global $CFG;
         $params = [
+            'langselector' => \dfem_lang::lang_selector(),
             'wwwroot' => $CFG->wwwroot,
         ];
         return $this->render_from_template('core/navigation', $params);

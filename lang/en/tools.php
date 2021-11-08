@@ -24,7 +24,8 @@ if (!defined('DFEM_INTERNAL')) die();
 
 $lang['data_was_stored'] = 'Data was stored';
 $lang['missing_estimation'] = 'No such estimation found, go back to tools list!';
-$lang['results'] = 'Resuls';
+$lang['results'] = 'Results';
+$lang['search'] = 'Search';
 $lang['secret_not_found'] = 'This secret was not found. Maybe it was removed or is expired!';
 $lang['show_tool_results'] = 'Show my results regarding this tool!';
 
@@ -34,16 +35,16 @@ $lang['origin2']       = 'I control what data is transmitted over the internet.'
 $lang['origin3']       = 'The software automatically tracks transactional data.';
 $lang['origin4']       = 'The software automatically tracks telemetry data.';
 $lang['granularity']   = 'Granularity of digital footprints';
-$lang['granularity1']  = 'The service provider stores my documents and media files';
-$lang['granularity2']  = 'The service provider stores metadata of my actions (gps, work-time, ...)';
+$lang['granularity1']  = 'The service provider stores my documents and media files.';
+$lang['granularity2']  = 'The service provider stores metadata of my actions (gps, work-time, ...).';
 $lang['granularity3']  = 'The service provider stores information about my devices.';
 $lang['transparency']  = 'Transparency of data processing';
 $lang['transparency1'] = 'There is information about what data is raised.';
 $lang['transparency2'] = '> I trust this information.';
-$lang['transparency3'] = '> I do not trust this information.';
+$lang['transparency3'] = '> I <strong>do not</strong> trust this information.';
 $lang['transparency4'] = 'There is information about what data is shared with others.';
 $lang['transparency5'] = '> I trust this information.';
-$lang['transparency6'] = '> I do not trust this information.';
+$lang['transparency6'] = '> I <strong>do not</strong> this information.';
 $lang['goals']         = 'Congruent goals of data use';
 $lang['goals1']        = 'My data is used to improve the usability of the software.';
 $lang['goals2']        = 'My data is used to improve the service behind the scenes.';

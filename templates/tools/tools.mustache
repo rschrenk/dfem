@@ -1,18 +1,86 @@
 <div class="tools">
-    <h3>{{#str}} dfem {{/str}}</h3>
-    <div class="tools">
-        {{#toolcategories}}
-            <div class="toolcategory">{{category}}</div>
-            {{#archetypes}}
-                <div class="archetype">{{archetype}}</div>
-                {{#tools}}
-                <div id="tool-{{id}}" class="tool">
-                    <a href="{{toolurl}}">
-                        {{name}}
-                    </a>
-                </div>
-                {{/tools}}
-            {{/archetypes}}
-        {{/toolcategories}}
+    <div style="display: flex;">
+        <div>
+            <h3>{{#str}} tools {{/str}}</h3>
+            <form>
+                <input type="search" id="search-{{uniqid}}" onkeyup="doSearch_{{uniqid}}();"
+                    placeholder="{{#str}} search, tools {{/str}}" minlength="3" required />
+                <span class="validity"></span>
+            </form>
+            <ul class="tools" id="tools-{{uniqid}}">
+                {{#toolcategories}}
+                    <li>
+                        {{category}}
+                        {{#archetypes}}
+                            <ul>
+                                {{^toolisarchetype}}
+                                    <li>
+                                        {{archetype}}
+                                        <ul>
+                                            {{#tools}}
+                                                <li class="tool">
+                                                    {{#hasestimated}}
+                                                        <img src="{{wwwroot}}/pix/check_green.png" alt="checked"
+                                                             style="height: 1em;"/>
+                                                    {{/hasestimated}}
+                                                    {{^hasestimated}}
+                                                        <img src="{{wwwroot}}/pix/check_red.png" alt=""
+                                                             style="height: 1em;"/>
+                                                    {{/hasestimated}}
+                                                    <a href="{{toolurl}}">
+                                                        {{name}}
+                                                    </a>
+                                                </li>
+                                            {{/tools}}
+                                        </ul>
+                                    </li>
+                                {{/toolisarchetype}}
+                                {{#toolisarchetype}}
+                                    {{#tools}}
+                                        <li class="tool">
+                                            {{#hasestimated}}
+                                                <img src="{{wwwroot}}/pix/check_green.png" alt="checked"
+                                                     style="height: 1em;"/>
+                                            {{/hasestimated}}
+                                            {{^hasestimated}}
+                                                <img src="{{wwwroot}}/pix/check_red.png" alt=""
+                                                     style="height: 1em;"/>
+                                            {{/hasestimated}}
+                                            <a href="{{toolurl}}">
+                                                {{name}}
+                                            </a>
+                                        </li>
+                                    {{/tools}}
+                                {{/toolisarchetype}}
+
+                            </ul>
+                        {{/archetypes}}
+                    </li>
+
+                {{/toolcategories}}
+            </ul>
+        </div>
+        <div>
+            {{#tool.id}}
+                {{>tools/tool}}
+            {{/tool.id}}
+        </div>
     </div>
 </div>
+
+
+<script>
+function doSearch_{{uniqid}}() {
+    var s = document.getElementById('search-{{uniqid}}').value.toLowerCase();
+    const lis = document.querySelectorAll("#tools-{{uniqid}} li.tool");
+    for (var i = 0; i < lis.length; i++) {
+        var li = lis[i];
+        if (li.innerText.toLowerCase().indexOf(s) == -1) {
+            li.style.display = 'none';
+        } else {
+            li.style.display = '';
+        }
+    }
+
+}
+</script>

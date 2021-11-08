@@ -1,5 +1,10 @@
 <div class="tools results">
     <h3>{{tool.name}}</h3>
+    {{^isshared}}
+    <a href="{{wwwroot}}/tools/index.php?id={{estimation.id}}" class="btn btn-primary">
+        {{#str}} back, results {{/str}}
+    </a>
+    {{/isshared}}
     {{#canshare}}
         <a href="{{wwwroot}}/tools/share.php?id={{estimation.id}}" class="btn btn-primary">
             {{#str}} share, results {{/str}}
@@ -8,7 +13,7 @@
     {{#isshared}}
         <p class="alert alert-info">
             {{#str}} do_your_own_estimation, results {{/str}}<br />
-            <a href="{{wwwroot}}/tools/tool.php?id={{tool.id}}" class="btn btn-primary">
+            <a href="{{wwwroot}}/tools/index.php?id={{tool.id}}" class="btn btn-primary">
                 {{#str}} do_your_own_estimation_of, results {{/str}} {{tool.name}}
             </a>
         </a>
@@ -16,26 +21,24 @@
     <div class="container">
         <div class="mine">
             <h4>{{#str}} result_mine, results {{/str}}</h4>
-            <table border="0">
+            <div class="trafficlight">
                 {{#resultclasses}}
-                    <tr>
-                        <th>
-                            {{#icon}}
-                                <img src="{{icon}}" alt="{{class}}" style="height: 2em;" />
-                            {{/icon}}
-                            {{^icon}}
-                                <strong>{{class}}: </strong>
-                            {{/icon}}
-                            {{label}}
-                        </th>
-                    </tr>
-                    <tr>
-                        <td>
-                            {{text}}
-                        </td>
-                    </tr>
+                    <div>
+                        {{#icon}}
+                            <img src="{{icon}}" alt="{{class}}" style="height: 2em;" />
+                        {{/icon}}
+                        {{^icon}}
+                            <strong>{{class}}: </strong>
+                        {{/icon}}
+                        {{label}}
+                    </div>
                 {{/resultclasses}}
-            </table>
+            </div>
+            {{#resultclasses}}
+                <p>
+                    {{text}}
+                </p>
+            {{/resultclasses}}
         </div>
         <div class="comparison">
             <h4>{{#str}} result_comparison, results {{/str}}</h4>
@@ -44,31 +47,27 @@
         </div>
         <div class="mean">
             <h4>{{#str}} result_mean, results {{/str}}</h4>
-            <table border="0">
+            <div class="trafficlight">
                 {{#resultmeanclasses}}
-                    <tr>
-                        <th>
-                            {{#icon}}
-                                <img src="{{icon}}" alt="{{class}}" style="height: 2em;" />
-                            {{/icon}}
-                            {{^icon}}
-                                <strong>{{class}}: </strong>
-                            {{/icon}}
-                            {{label}}
-                        </th>
-                    </tr>
-                    <tr>
-                        <td>
-                            {{text}}
-                        </td>
-                    </tr>
+                    <div>
+                        {{#icon}}
+                            <img src="{{icon}}" alt="{{class}}" style="height: 2em;" />
+                        {{/icon}}
+                        {{^icon}}
+                            <strong>{{class}}: </strong>
+                        {{/icon}}
+                        {{label}}
+                    </div>
                 {{/resultmeanclasses}}
-                {{^resultmeanclasses}}
-                    <tr>
-                        <td>{{#str}} not_enough_mean_results, results {{/str}}</td>
-                    </tr>
-                {{/resultmeanclasses}}
-            </table>
+            </div>
+            {{#resultmeanclasses}}
+                <p>
+                    {{text}}
+                </p>
+            {{/resultmeanclasses}}
+            {{^resultmeanclasses}}
+                <p>{{#str}} not_enough_mean_results, results {{/str}}</p>
+            {{/resultmeanclasses}}
         </div>
     </div>
 </div>
@@ -129,11 +128,29 @@ var datamean = [{{resultdata_mean}}];
 var dataminimum = [{{resultdata_minimum}}];
 var datamaximum = [{{resultdata_maximum}}];
 
+/*
 var offset = 20;
 datamine.forEach(function(item, index, arr) { arr[index] += offset; });
 datamean.forEach(function(item, index, arr) { arr[index] += offset; });
 dataminimum.forEach(function(item, index, arr) { arr[index] += offset; });
 datamaximum.forEach(function(item, index, arr) { arr[index] += offset; });
+*/
+datamine.forEach(function(item, index, arr) {
+    var minimum = dataminimum[index];
+    var maximum = datamaximum[index];
+    // Re-Calculate as percent within range.
+    var range = maximum - minimum;
+    var v = arr[index] - minimum;
+    arr[index] = v / range * 100;
+});
+datamaximum.forEach(function(item, index, arr) {
+    var minimum = dataminimum[index];
+    var maximum = datamaximum[index];
+    // Re-Calculate as percent within range.
+    var range = maximum - minimum;
+    var v = arr[index] - minimum;
+    arr[index] = v / range * 100;
+});
 
 const data = {
     labels: [
@@ -155,7 +172,7 @@ const data = {
         fill: true,
         backgroundColor: CHART_COLORS.t_orange,
         borderColor: CHART_COLORS.orange,
-    }, {
+    }, /*{
         label: '{{#str}} result_minimum, results {{/str}}',
         data: dataminimum,
         fill: false,
@@ -167,7 +184,7 @@ const data = {
         fill: false,
         borderColor: 'rgba(255, 0, 0, 0.3)',
         borderDash: [3, 3],
-    }]
+    }*/]
 };
 const ctx = document.getElementById('chart-{{uniqid}}');
 const chart = new Chart(ctx, {
@@ -185,7 +202,7 @@ const chart = new Chart(ctx, {
                     display: false
                 },
                 suggestedMin: 0,
-                suggestedMax: 45,
+                suggestedMax: 120,
             }
         }
     }

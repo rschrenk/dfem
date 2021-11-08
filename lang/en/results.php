@@ -22,13 +22,14 @@
 
 if (!defined('DFEM_INTERNAL')) die();
 
+$lang['back'] = 'Back';
 $lang['do_your_own_estimation'] = 'Do your own estimation about this tool within minutes. Interested? Just click the following link!';
 $lang['do_your_own_estimation_of'] = 'Start estimation of ';
 $lang['invalid'] = 'invalidated';
 $lang['missing_estimation'] = 'No such estimation found, go back to tools list!';
 $lang['not_enough_mean_results'] = 'Not enough results from other people in regard of this tool to show average results';
 $lang['result_comparison'] = 'Comparison';
-$lang['result_comparison_info'] = 'The bigger the areas appear, the more digital footprints will be caused by this tool. Each dimension has different minimum and maximum values. Therefore the minimum and maximum ranges for each dimension are printed with dashed lines.';
+$lang['result_comparison_info'] = 'The bigger the areas appear, the more digital footprints will be caused by this tool.';
 $lang['result_maximum'] = 'Maximum Values';
 $lang['result_mean'] = 'Mean Results';
 $lang['result_minimum'] = 'Minimum Values';

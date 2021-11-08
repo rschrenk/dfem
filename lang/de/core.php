@@ -22,13 +22,13 @@
 
 if (!defined('DFEM_INTERNAL')) die();
 
-$lang['lang'] = 'English';
+$lang['lang'] = 'Deutsch';
 
 $lang['dfem'] = 'DFEM';
 $lang['dfem_long'] = 'Digital Footprint Estimation Model';
 
-$lang['language_unkown'] = 'The language {$a} is unknown!';
+$lang['language_unkown'] = 'Die Sprache {$a} ist unbekannt!';
 
-$lang['permission_denied'] = 'Permission denied';
-$lang['send'] = 'Send';
-$lang['tools'] = 'Tools';
+$lang['permission_denied'] = 'Zugriff nicht gestattet';
+$lang['send'] = 'Senden';
+$lang['tools'] = 'Werkzeuge';

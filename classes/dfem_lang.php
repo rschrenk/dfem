@@ -62,6 +62,17 @@ class dfem_lang {
         }
         return $countries;
     }
+    public static function get_languages() {
+        global $CFG;
+        $langcandidates = scandir("$CFG->dirroot/lang");
+        $languages = [];
+        foreach ($langcandidates as $candidate) {
+            if (str_replace('.', '', $candidate) == '') continue;
+            if (!is_dir("$CFG->dirroot/lang/$candidate")) continue;
+            $languages[] = $candidate;
+        }
+        return $languages;
+    }
     /**
      * Get a particular localized string.
      * If string is not found in default language, fallback language is used.
@@ -81,6 +92,7 @@ class dfem_lang {
         if (is_array($params)) {
             $params = (object) $params;
         }
+
         $languages = [ $language, $CFG->lang_fallback];
         foreach ($languages as $language) {
             if (empty(self::$verbs[$language]) || empty(self::$verbs[$language][$component])) {
@@ -100,6 +112,24 @@ class dfem_lang {
                 return $verb;
             }
         }
+    }
+    public static function lang_selector() {
+        global $CFG, $OUTPUT, $PAGE;
+
+        $langcandidates = self::get_languages();
+        $languages = [];
+        foreach ($langcandidates as $candidate) {
+            $languages[] = (object) [
+                'lang' => $candidate,
+                'caption' => get_string('lang', 'core', $candidate),
+                'selected' => ($CFG->lang_default == $candidate),
+            ];
+        }
+
+        $params = (object) [
+            'languages' => $languages
+        ];
+        return $OUTPUT->render_from_template("core/langselector", $params);
     }
     /**
      * Load a specific language file into memory.
@@ -121,9 +151,20 @@ class dfem_lang {
      * @param language valid language identifier (e.g. en, de, ...)
      */
     public static function set_default($language) {
-        global $CFG;
-        if (dir_exists("$CFG->dirroot/lang/$language")) {
-            $CFG->lang_default = $language;
+        global $CFG, $DB;
+        if (!in_array($language, self::get_languages())) {
+            unset($_SESSION['lang_default']);
+            throw new \dfem_exception(get_string('language_unkown', 'core', '', $language));
+        }
+        $CFG->lang_default = $language;
+        $_SESSION['lang_default'] = $language;
+
+        if (!empty($_SESSION['authid'])) {
+            $auth = $DB->get_record('authentications', [ 'id' => $_SESSION['authid'] ]);
+            if ($auth->language != $language) {
+                $auth->language = $language;
+                $DB->update_record('authentications', $auth);
+            }
         }
     }
 }

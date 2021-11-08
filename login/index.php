@@ -42,6 +42,7 @@ if (!empty($email)) {
     if (empty($auth) || empty($auth->id)) {
         $auth = (object) [
             'email_hashed' => $DB->salt($email),
+            'language' => $CFG->lang_default,
             'onetimepassword' => substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 7)), 0, 7),
             'passwordcreated' => time(),
             'timecreated' => time(),

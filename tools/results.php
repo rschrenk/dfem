@@ -47,7 +47,7 @@ if (!empty($id)) {
     }
 }
 
-if ($_SESSION['authid'] != $estimation->authid) {
+if (empty($s) && $_SESSION['authid'] != $estimation->authid) {
     throw new \dfem_exception(get_string('permission_denied', 'core'), 0, "/tools/index.php");
 }
 

@@ -48,7 +48,7 @@ $lang['fortune'] = 'Vorteile';
 
 $lang['control_A'] = 'Dieses Werkzeug scheint eine Balance zwischen der Generierung Digitaler Fußabdrücke und der Kontrolle über Daten zu bieten. Obwohl Digitale Fußabdrücke verursacht werden, können Sie jederzeit die Notbremse ziehen.';
 $lang['control_B'] = 'Seien Sie auf der Hut vor Digitalen Fußabdrücken. Es gibt keine Garantie, dass diese nicht in falsche Hände fallen.';
-$lang['control_C'] = 'Vorsicht ist geboben! Wenn Sie dieses Werkzeug verwenden haben sie kaum eine Kontrolle, was mit Ihren Daten passiert.';
+$lang['control_C'] = 'Vorsicht ist geboten! Wenn Sie dieses Werkzeug verwenden haben sie kaum eine Kontrolle, was mit Ihren Daten passiert.';
 
 $lang['intention_A'] = 'Bei diesem Werkzeug werden nur jene Daten verarbeitet, die Sie bewusst bereitstellen. Es scheint so, als wären Sie hier auf der sicheren Seite.';
 $lang['intention_B'] = 'Obwohl diese Software seriös wirkt könnte es passieren, dass Daten ohne Ihrem Wissen aufgezeichnet und verarbeitet werden.';

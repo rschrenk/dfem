@@ -27,51 +27,67 @@ class dfem_helper {
                         'uncontrollability', 'involuntariness', 'vulnerability',
                         'disparity', 'endangerment'
                     ];
+    private static $model = [
+                        'origin1'       => [ -4, -5, -5],
+                        'origin2'       => [ -2, -1 ],
+                        'origin3'       => [  3,  2,  2,  1],
+                        'origin4'       => [  3,  2,  2,  1],
+                        'granularity1'  => [  0, -1,  1],
+                        'granularity2'  => [  0,  2,  1],
+                        'granularity3'  => [  0,  2,  1],
+                        'transparency1' => [ -1, -1, -2],
+                        'transparency2' => [],
+                        'transparency3' => [  2,  0,  2,  0,  1],
+                        'transparency4' => [ -1, -1],
+                        'transparency5' => [],
+                        'transparency6' => [  2,  0,  2,  0,  1],
+                        'goals1'        => [  0, -1,  0, -3],
+                        'goals2'        => [  0,  0,  0, -2],
+                        'goals3'        => [  0,  0,  0,  1],
+                        'goals4'        => [  1,  1,  2,  1,  2],
+                        'goals5'        => [  2,  1,  2,  1,  4],
+                        'location1'     => [ -4,   0, -4],
+                        'location2'     => [ -2],
+                        'location3'     => [ -2,  0,  0,  0,  2],
+                        'location4'     => [  5,  0,  4,  0,  4],
+                        'location5'     => [  0,  0,  4],
+                        'means1'        => [ -1,  0, -1],
+                        'means2'        => [ -1,  0, -1],
+                        'means3'        => [ -1,  0, -1],
+                        'means4'        => [ -1,  0, -1],
+                        'means5'        => [  2,  0,  2,  0,  1],
+                        'benefits1'     => [  0,  0,  0,  0, -1],
+                        'benefits2'     => [  0,  0,  0,  0, -1],
+                        'benefits3'     => [  0,  0,  0,  0, -3],
+                        'benefits4'     => [  0,  0,  0,  0,  5],
+                    ];
+
     public static function calc_result($tool) {
         foreach (self::$cols as $col) {
             $tool->result->{$col} = null;
         }
-        $model = [
-            'origin1'       => [ -4, -5, -5],
-            'origin2'       => [ -2, -1 ],
-            'origin3'       => [  3,  2,  2,  1],
-            'origin4'       => [  3,  2,  2,  1],
-            'granularity1'  => [  0, -1,  1],
-            'granularity2'  => [  0,  2,  1],
-            'granularity3'  => [  0,  2,  1],
-            'transparency1' => [ -1, -1, -2],
-            'transparency2' => [],
-            'transparency3' => [  2,  0,  2,  0,  1],
-            'transparency4' => [ -1, -1],
-            'transparency5' => [],
-            'transparency6' => [  2,  0,  2,  0,  1],
-            'goals1'        => [  0, -1,  0, -3],
-            'goals2'        => [  0,  0,  0, -2],
-            'goals3'        => [  0,  0,  0,  1],
-            'goals4'        => [  1,  1,  2,  1,  2],
-            'goals5'        => [  2,  1,  2,  1,  4],
-            'location1'     => [ -4,   0, -4],
-            'location2'     => [ -2],
-            'location3'     => [ -2,  0,  0,  0,  2],
-            'location4'     => [  5,  0,  4,  0,  4],
-            'location5'     => [  0,  0,  4],
-            'means1'        => [ -1,  0, -1],
-            'means2'        => [ -1,  0, -1],
-            'means3'        => [ -1,  0, -1],
-            'means4'        => [ -1,  0, -1],
-            'means5'        => [  2,  0,  2,  0,  1],
-            'benefits1'     => [  0,  0,  0,  0, -1],
-            'benefits2'     => [  0,  0,  0,  0, -1],
-            'benefits3'     => [  0,  0,  0,  0, -3],
-            'benefits4'     => [  0,  0,  0,  0,  5],
-        ];
-        foreach ($model as $field => $calcs) {
+        $mins = [];
+        $maxs = [];
+        foreach (self::$model as $field => $calcs) {
+            for ($a = 0; $a < count($calcs); $a++) {
+                if ($calcs[$a] < 0) $mins[$a] += $calcs[$a];
+                if ($calcs[$a] > 0) $maxs[$a] += $calcs[$a];
+            }
+        }
+
+        foreach (self::$model as $field => $calcs) {
             for ($a = 0; $a < count($calcs); $a++) {
                 $col = self::$cols[$a];
                 if (!empty($tool->rating->{$field}) && !empty($calcs[$a])) {
                     $tool->result->{$col} += $calcs[$a];
                 }
             }
+        }
+        for ($a = 0; $a < count(self::$cols); $a++) {
+            $col = self::$cols[$a];
+            $range = $maxs[$a] - $mins[$a];
+            $v = $tool->result->{$col} - $mins[$a];
+            $tool->result->{$col} = round($v / $range * 100);
         }
         return $tool;
     }
@@ -80,34 +96,7 @@ class dfem_helper {
         global $CFG;
         $resultclasses = [];
         foreach (self::$cols as $col) {
-            $class = '';
-            switch ($col) {
-                case self::$cols[0]:
-                    if ($result->$col <= -7) { $class = 'A'; }
-                    if ($result->$col >= -6 && $result->$col <= 6) { $class = 'B'; }
-                    if ($result->$col >=  7) { $class = 'C'; }
-                break;
-                case self::$cols[1]:
-                    if ($result->$col <= -4) { $class = 'A'; }
-                    if ($result->$col >= -3 && $result->$col <= 3) { $class = 'B'; }
-                    if ($result->$col >=  4) { $class = 'C'; }
-                break;
-                case self::$cols[2]:
-                    if ($result->$col <= -2) { $class = 'A'; }
-                    if ($result->$col >= -1 && $result->$col <= 12) { $class = 'B'; }
-                    if ($result->$col >=  13) { $class = 'C'; }
-                break;
-                case self::$cols[3]:
-                    if ($result->$col <= -2) { $class = 'A'; }
-                    if ($result->$col >= -1 && $result->$col <= 2) { $class = 'B'; }
-                    if ($result->$col >=  3) { $class = 'C'; }
-                break;
-                case self::$cols[4]:
-                    if ($result->$col <=  3) { $class = 'A'; }
-                    if ($result->$col >=  4 && $result->$col <= 12) { $class = 'B'; }
-                    if ($result->$col >=  13) { $class = 'C'; }
-                break;
-            }
+            $class = ($result->$col < 34) ? 'A' : (($result->$col < 67) ? 'B' : 'C');
 
             $resultclasses[] = (object) [
                 'class' => $class,
@@ -237,6 +226,11 @@ class dfem_helper {
             $DB->update_record('estimations', $tool->estimation);
         }
         $tool = self::store_rating($tool);
+        $tool->estimation->result = 0;
+        foreach (self::$cols as $col) {
+            $tool->estimation->result += $tool->result->$col;
+        }
+        $DB->update_record('estimations', $tool->estimation);
         return $tool;
     }
 

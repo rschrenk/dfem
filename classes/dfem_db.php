@@ -46,7 +46,7 @@ class dfem_db {
     }
 
     public function get_record($table, $conditions = [], $fields = '*') {
-        $results = array_values($this->get_records($table, $conditions, $fields, 0, 2));
+        $results = array_values($this->get_records($table, $conditions, '', $fields, 0, 2));
         if (count($results) > 1) {
             throw new \dfem_exception(get_string('multiple_found_single_expected', 'db'));
         }
@@ -54,7 +54,7 @@ class dfem_db {
             return $results[0];
         }
     }
-    public function get_records($table, $conditions, $fields, $limitfrom = 0, $limitnum = 0) {
+    public function get_records($table, $conditions, $sort = '', $fields = '*', $limitfrom = 0, $limitnum = 0) {
         $cfields = []; $values = [];
         foreach ($conditions as $cfield => $val) {
             $cfields[] = $cfield . " = ?";
@@ -63,12 +63,16 @@ class dfem_db {
         if (count($cfields) > 0) {
             $WHERE = " WHERE " . implode(" AND ", $cfields);
         }
+        $ORDERBY = "";
+        if (!empty($sort)) {
+            $ORDERBY = " ORDER BY $sort";
+        }
 
         $LIMIT = "";
         if ($limitfrom > 0 || $limitnum > 0) {
             $LIMIT = " LIMIT $limitfrom, $limitnum";
         }
-        $sql = "SELECT $fields FROM {$this->prefix}$table $WHERE $LIMIT";
+        $sql = "SELECT $fields FROM {$this->prefix}$table $WHERE $ORDERBY $LIMIT";
         try {
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute($values);

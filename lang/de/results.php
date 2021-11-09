@@ -27,7 +27,10 @@ $lang['do_your_own_estimation'] = 'Erstelle deine eigene Einschätzung über die
 $lang['do_your_own_estimation_of'] = 'Starte Einschätzung von {$a->toolname}';
 $lang['invalid'] = 'abgelaufen';
 $lang['missing_estimation'] = 'Keine solche Einschätzung gefunden, gehe zurück zur Liste der Werkzeuge!';
+$lang['no_estimations_done'] = 'Bisher haben Sie keine Einschätzung über irgendein Werkzeug abgegeben. Daher können wir Ihnen auch kein Profil erstellen. Bitte starten Sie eine Einschätzung ausgehend von unserer <a href="{{CFG.wwwroot}}/tools/index.php">Liste an Werkzeugen</a>!';
 $lang['not_enough_mean_results'] = 'Es sind nicht genügend Daten von anderen Personen vorhanden, um für dieses Werkzeug eine durchschnittliche Einschätzung anzuzeigen.';
+$lang['personal_profile'] = 'Persönliches Profil';
+$lang['profile'] = 'Profil';
 $lang['result_comparison'] = 'Vergleich';
 $lang['result_comparison_info'] = 'Je größer die Areale dargestellt sind, desto höher ist der Einfluß des Werkzeugs auf die eigenen Digitalen Fußabdrücke.';
 $lang['result_maximum'] = 'Maximale Werte';
@@ -40,6 +43,8 @@ $lang['share'] = 'Teile dein Ergebnis!';
 $lang['share_add'] = 'Code erstellen';
 $lang['sharings'] = 'Freigabelinks für {$a->toolname}';
 $lang['sharings_description'] = 'You can share your results for {$a->toolname} using any of the following links. If you want to revoke a specific code, just click the button "revoke".';
+$lang['show_chart_individual'] = 'Zeige eine Grafik pro Tool';
+$lang['show_chart_single'] = 'Zeige alle Tools in einer Grafik';
 
 $lang['uncontrollability'] = 'Unkontrollierbarkeit';
 $lang['involuntariness'] = 'Unfreiwilligkeit';

@@ -130,26 +130,6 @@ const NAMED_COLORS = [
 
 var datamine = [{{resultdata_mine}}];
 var datamean = [{{resultdata_mean}}];
-var dataminimum = [{{resultdata_minimum}}];
-var datamaximum = [{{resultdata_maximum}}];
-
-datamine.forEach(function(item, index, arr) {
-    var minimum = dataminimum[index];
-    var maximum = datamaximum[index];
-    // Re-Calculate as percent within range.
-    var range = maximum - minimum;
-    var v = arr[index] - minimum;
-    arr[index] = v / range * 100;
-});
-
-datamean.forEach(function(item, index, arr) {
-    var minimum = dataminimum[index];
-    var maximum = datamaximum[index];
-    // Re-Calculate as percent within range.
-    var range = maximum - minimum;
-    var v = arr[index] - minimum;
-    arr[index] = v / range * 100;
-});
 
 const data = {
     labels: [{{resultdata_labels}}],

@@ -1,0 +1,231 @@
+<div class="profile">
+    {{^estimations}}
+        <div class="alert alert-danger">
+            {{#str}} no_estimations_done, results {{/str}}<br />
+        </div>
+    {{/estimations}}
+    {{#estimations.0}}
+        {{#singlechart}}
+            <a href="{{CFG.wwwroot}}/tools/profile.php" class="btn btn-secondary">
+                <i class="fas fa-chart-bar"></i>
+                {{#str}} show_chart_individual, results {{/str}}
+            </a>
+        {{/singlechart}}
+        {{^singlechart}}
+            <a href="{{CFG.wwwroot}}/tools/profile.php?singlechart=1" class="btn btn-secondary">
+                <i class="fas fa-chart-bar"></i>
+                {{#str}} show_chart_single, results {{/str}}
+            </a>
+        {{/singlechart}}
+    {{/estimations.0}}
+
+
+    {{#singlechart}}
+        <div style="max-height: 100vh;;">
+            <canvas id="chart-{{uniqid}}" width="600" height="600"></canvas>
+        </div>
+    {{/singlechart}}
+    {{^singlechart}}
+        <div class="row">
+            {{#estimations}}
+                <div class="col-3">
+                    <div class="mine">
+                        <h4>{{tool.name}}</h4>
+                        <canvas id="chart-{{uniqid}}-{{id}}" width="600" height="600"></canvas>
+                    </div>
+                </div>
+            {{/estimations}}
+        </div>
+    {{/singlechart}}
+<script>
+
+function color(index) {
+    return COLORS[index % COLORS.length];
+}
+
+const COLORS = [
+    '#4dc9f6',
+    '#f67019',
+    '#f53794',
+    '#537bc4',
+    '#acc236',
+    '#166a8f',
+    '#00a950',
+    '#58595b',
+    '#8549ba'
+];
+
+const CHART_COLORS = {
+    red: 'rgb(255, 99, 132)',
+    orange: 'rgb(255, 159, 64)',
+    yellow: 'rgb(255, 205, 86)',
+    green: 'rgb(75, 192, 192)',
+    blue: 'rgb(54, 162, 235)',
+    purple: 'rgb(153, 102, 255)',
+    grey: 'rgb(201, 203, 207)',
+    t_red: 'rgba(255, 99, 132, 0.2)',
+    t_orange: 'rgba(255, 159, 64, 0.2)',
+    t_green: 'rgba(75, 192, 192, 0.2)',
+    t_blue: 'rgba(54, 162, 235, 0.2)',
+    t_purple: 'rgba(153, 102, 255, 0.2)',
+    t_grey: 'rgba(201, 203, 207, 0.2)',
+};
+const NAMED_COLORS = [
+  CHART_COLORS.red,
+  CHART_COLORS.orange,
+  CHART_COLORS.yellow,
+  CHART_COLORS.green,
+  CHART_COLORS.blue,
+  CHART_COLORS.purple,
+  CHART_COLORS.grey,
+  CHART_COLORS.t_red,
+  CHART_COLORS.t_orange,
+  CHART_COLORS.t_yellow,
+  CHART_COLORS.t_green,
+  CHART_COLORS.t_blue,
+  CHART_COLORS.t_purple,
+  CHART_COLORS.t_grey,
+];
+
+{{#singlechart}}
+    var channels = [153, 102, 255];
+    var pointer = 0, mover = 30;
+    var a = 0, factor = 3000000;
+    var colors = {}, backcolors = {};
+    {{#estimations}}
+    channels[pointer] += mover;
+    if (channels[pointer] > 255) {
+        channels[pointer] = channels[pointer] - 255;
+        pointer++;
+        if (pointer > channels.length) pointer = 0;
+        channels[pointer] += mover;
+    }
+    colors[{{id}}] = 'rgba(' + channels[0] + ',' + channels[1] + ',' + channels[2] + ',1)';
+    backcolors[{{id}}] = 'rgba(' + channels[0] + ',' + channels[1] + ',' + channels[2] + ',0.3)';
+
+    {{/estimations}}
+
+    const data = {
+        labels: [{{resultdata_labels}}],
+        datasets: [
+            {{#estimations}}
+            {
+                label: '{{tool.name}}',
+                data: [{{resultdata_mine}}],
+                fill: true,
+                backgroundColor: backcolors[{{id}}],
+                borderColor: colors[{{id}}],
+                pointBackgroundColor: colors[{{id}}],
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: colors[{{id}}],
+            },
+            {{/estimations}}
+        ]
+    };
+
+    const chart = new Chart('chart-{{uniqid}}', {
+        type: 'radar',
+        data: data,
+        options: {
+            elements: {
+                line: {
+                    borderWidth: 3
+                }
+            },
+            scales: {
+                r: {
+                    angleLines: {
+                        display: true
+                    },
+                    min: 0,
+                    max: 100,
+                }
+            },
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: '{{#str}} dfem {{/str}}: {{#str}} result_mine, results {{/str}}'
+                },
+                subtitle: {
+                    display: false,
+                    text: '{{CFG.wwwroot}}'
+                }
+            }
+        }
+    });
+    setTimeout(function()  {
+        chart.resize();
+    }, 300);
+
+{{/singlechart}}
+{{^singlechart}}
+    {{#estimations}}
+    const data_{{id}} = {
+        labels: [{{resultdata_labels}}],
+        datasets: [
+            {
+                label: '{{#str}} result_mine, results {{/str}}',
+                data: [{{resultdata_mine}}],
+                fill: true,
+                backgroundColor: CHART_COLORS.t_purple,
+                borderColor: CHART_COLORS.purple,
+                pointBackgroundColor: CHART_COLORS.purple,
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: CHART_COLORS.purple,
+            },
+            {
+                label: '{{#str}} result_mean, results {{/str}}',
+                data: [{{resultdata_mean}}],
+                fill: true,
+                backgroundColor: CHART_COLORS.t_orange,
+                borderColor: CHART_COLORS.orange,
+                pointBackgroundColor: CHART_COLORS.orange,
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: CHART_COLORS.orange,
+            },
+        ]
+    };
+
+    const chart_{{id}} = new Chart('chart-{{uniqid}}-{{id}}', {
+        type: 'radar',
+        data: data_{{id}},
+        options: {
+            elements: {
+                line: {
+                    borderWidth: 3
+                }
+            },
+            scales: {
+                r: {
+                    angleLines: {
+                        display: true
+                    },
+                    min: 0,
+                    max: 100,
+                }
+            },
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: '{{#str}} dfem {{/str}}: {{tool.name}}'
+                },
+                subtitle: {
+                    display: false,
+                    text: '{{CFG.wwwroot}}'
+                }
+            }
+        }
+    });
+    setTimeout(function()  {
+        chart_{{id}}.resize();
+    }, 300);
+    {{/estimations}}
+{{/singlechart}}
+
+
+</script>

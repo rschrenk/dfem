@@ -27,7 +27,10 @@ $lang['do_your_own_estimation'] = 'Do your own estimation about this tool within
 $lang['do_your_own_estimation_of'] = 'Start estimation of {$a->toolname}';
 $lang['invalid'] = 'invalidated';
 $lang['missing_estimation'] = 'No such estimation found, go back to tools list!';
+$lang['no_estimations_done'] = 'No estimations regarding any digital tool have been done by you. Therefore we cannot show you your profile. Please start by doing an estimation from the <a href="{{CFG.wwwroot}}/tools/index.php">list of our tools</a>!';
 $lang['not_enough_mean_results'] = 'Not enough results from other people in regard of this tool to show average results';
+$lang['personal_profile'] = 'Personal profile';
+$lang['profile'] = 'Profile';
 $lang['result_comparison'] = 'Comparison';
 $lang['result_comparison_info'] = 'The bigger the areas appear, the more digital footprints will be caused by this tool.';
 $lang['result_maximum'] = 'Maximum Values';
@@ -40,6 +43,8 @@ $lang['share'] = 'Share your result';
 $lang['share_add'] = 'Create code';
 $lang['sharings'] = 'Sharing links for {$a->toolname}';
 $lang['sharings_description'] = 'You can share your results for {$a->toolname} using any of the following links. If you want to revoke a specific code, just click the button "revoke".';
+$lang['show_chart_individual'] = 'Show one chart per tool';
+$lang['show_chart_single'] = 'Show single chart for all tools';
 
 $lang['uncontrollability'] = 'Uncontrollability';
 $lang['involuntariness'] = 'Involuntariness';

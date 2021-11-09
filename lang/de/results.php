@@ -44,7 +44,7 @@ $lang['sharings_description'] = 'You can share your results for {$a->toolname} u
 $lang['uncontrollability'] = 'Unkontrollierbarkeit';
 $lang['involuntariness'] = 'Unfreiwilligkeit';
 $lang['vulnerability'] = 'Verwundbarkeit';
-$lang['disparity'] = 'Unstimmigkeit';
+$lang['disparity'] = 'Disparität';
 $lang['endangerment'] = 'Gefährdung';
 
 $lang['uncontrollability_A'] = 'Dieses Werkzeug scheint eine Balance zwischen der Generierung Digitaler Fußabdrücke und der Kontrolle über Daten zu bieten. Obwohl Digitale Fußabdrücke verursacht werden, können Sie jederzeit die Notbremse ziehen.';

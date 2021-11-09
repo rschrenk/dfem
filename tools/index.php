@@ -34,6 +34,43 @@ $params = (object) [
     'tool' => '',
 ];
 
+
+$toolid = retrieve('id');
+if (!empty($toolid)) {
+    $tool = $DB->get_record('tools', [ 'id' => $toolid ]);
+
+    $tool->estimation = $DB->get_record('estimations', [ 'authid' => $_SESSION['authid'], 'toolid' => $tool->id]);
+    if (!empty($tool->estimation->id)) {
+        $tool->rating = $DB->get_record('ratings', [ 'estimationid' => $tool->estimation->id ]);
+        $tool->result = $DB->get_record('results', [ 'estimationid' => $tool->estimation->id ]);
+    }
+    $fieldtypes = \dfem_helper::get_fieldtypes();
+
+    if (!empty(retrieve('formsent'))) {
+        $tool = \dfem_helper::store_estimation($tool);
+        $tool->stored = 1;
+    }
+
+    $tool->fieldtypes = [];
+    foreach ($fieldtypes as $fieldtype => $fields) {
+        $index = count($tool->fieldtypes);
+        $tool->fieldtypes[$index] = (object)[
+            'fieldtype' => $fieldtype,
+            'label' => get_string($fieldtype, "tools"),
+            'fields' => [],
+        ];
+        foreach ($fields as $field) {
+            $tool->fieldtypes[$index]->fields[] = (object) [
+                'field' => $field,
+                'label' => get_string($field, "tools"),
+                'enabled' => (!empty($tool->rating->{$field})) ? 1 : 0,
+            ];
+        }
+    }
+    $params->tool = $tool;
+}
+
+
 $sql = "SELECT id,toolid
             FROM {prefix}estimations
             WHERE authid = ?";
@@ -78,41 +115,6 @@ foreach ($tools as $tool) {
     if ($archetype == $tool->name) {
         $params->toolcategories[$catindex]->archetypes[$archeindex]->toolisarchetype = 1;
     }
-}
-
-$toolid = retrieve('id');
-if (!empty($toolid)) {
-    $tool = $DB->get_record('tools', [ 'id' => $toolid ]);
-
-    $tool->estimation = $DB->get_record('estimations', [ 'authid' => $_SESSION['authid'], 'toolid' => $tool->id]);
-    if (!empty($tool->estimation->id)) {
-        $tool->rating = $DB->get_record('ratings', [ 'estimationid' => $tool->estimation->id ]);
-        $tool->result = $DB->get_record('results', [ 'estimationid' => $tool->estimation->id ]);
-    }
-    $fieldtypes = \dfem_helper::get_fieldtypes();
-
-    if (!empty(retrieve('formsent'))) {
-        $tool = \dfem_helper::store_estimation($tool);
-        $tool->stored = 1;
-    }
-
-    $tool->fieldtypes = [];
-    foreach ($fieldtypes as $fieldtype => $fields) {
-        $index = count($tool->fieldtypes);
-        $tool->fieldtypes[$index] = (object)[
-            'fieldtype' => $fieldtype,
-            'label' => get_string($fieldtype, "tools"),
-            'fields' => [],
-        ];
-        foreach ($fields as $field) {
-            $tool->fieldtypes[$index]->fields[] = (object) [
-                'field' => $field,
-                'label' => get_string($field, "tools"),
-                'enabled' => (!empty($tool->rating->{$field})) ? 1 : 0,
-            ];
-        }
-    }
-    $params->tool = $tool;
 }
 
 echo $OUTPUT->navigation();

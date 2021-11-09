@@ -222,6 +222,7 @@ class dfem_helper {
             if ($toolid != $estimation->toolid) {
                 $tool = $DB->get_record('tools', [ 'id' => $estimation->toolid ]);
                 echo "Loading new tool #$tool->id / $tool->name<br />";
+                $toolid = $tool->id;
             }
             unset($tool->rating);
             unset($tool->result);

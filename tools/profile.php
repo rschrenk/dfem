@@ -36,9 +36,9 @@ foreach ($estimations as $estimation) {
     $estimation->result = $DB->get_record('results', [ 'estimationid' => $estimation->id ]);
     $estimation->tool = $DB->get_record('tools', [ 'id' => $estimation->toolid ]);
     //$estimation->resultdata_labels = $labels;
-    $estimation->resultdata_mine = \dfem_helper::get_resultdata('mine', $estimation->result);
+    $estimation->resultdata_mine = \dfem_helper::get_resultdata('mine', $estimation->result, $estimation);
     if (empty(retrieve('singlechart'))) {
-        $estimation->resultdata_mean = \dfem_helper::get_resultdata('mean', $estimation->result);
+        $estimation->resultdata_mean = \dfem_helper::get_resultdata('mean', $estimation->result, $estimation);
     }
 }
 

@@ -53,6 +53,11 @@
                 </li>
             {{/toolcategories}}
         </ul>
+        {{#isadmin}}
+            <a href="{{CFG.wwwroot}}/tools/recalculate.php" class="btn btn-secondary">
+                {{#str}} recalculate, tools {{/str}}
+            </a>
+        {{/isadmin}}
     </div>
     {{#tool.id}}
         {{>tools/tool}}

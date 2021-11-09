@@ -20,15 +20,16 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-if (!defined('DFEM_INTERNAL')) die();
+require_once("../config.php");
 
-$lang['lang'] = 'Deutsch';
+$PAGE->heading(get_string('recalculate', 'tools'));
+$PAGE->title(get_string('recalculate', 'tools'));
 
-$lang['dfem'] = 'DFEM';
-$lang['dfem_long'] = 'Digital Footprint Estimation Model';
+require_login();
+require_persona();
+require_admin();
 
-$lang['language_unkown'] = 'Die Sprache {$a} ist unbekannt!';
-
-$lang['permission_denied'] = 'Zugriff nicht gestattet <strong>{$a}</strong>';
-$lang['send'] = 'Senden';
-$lang['tools'] = 'Werkzeuge';
+echo $OUTPUT->header();
+echo $OUTPUT->navigation();
+\dfem_helper::recalculate();
+echo $OUTPUT->footer();

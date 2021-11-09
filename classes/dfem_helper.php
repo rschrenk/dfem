@@ -28,34 +28,37 @@ class dfem_helper {
                         'disparity', 'endangerment'
                     ];
     private static $model = [
-                        'origin1'       => [ -4, -5, -5],
-                        'origin2'       => [ -2, -1 ],
-                        'origin3'       => [  3,  2,  2,  1],
-                        'origin4'       => [  3,  2,  2,  1],
-                        'granularity1'  => [  0, -1,  1],
+                        'origin1'       => [ -4, -6, -4],
+                        'origin2'       => [  0, -5 ],
+                        'origin3'       => [  0,  5,  2,  1],
+                        'origin4'       => [  0,  5,  2,  1],
+
+                        'granularity1'  => [  0,  2,  1],
                         'granularity2'  => [  0,  2,  1],
-                        'granularity3'  => [  0,  2,  1],
-                        'transparency1' => [ -1, -1, -2],
-                        'transparency2' => [],
-                        'transparency3' => [  2,  0,  2,  0,  1],
-                        'transparency4' => [ -1, -1],
-                        'transparency5' => [],
-                        'transparency6' => [  2,  0,  2,  0,  1],
-                        'goals1'        => [  0, -1,  0, -3],
-                        'goals2'        => [  0,  0,  0, -2],
-                        'goals3'        => [  0,  0,  0,  1],
-                        'goals4'        => [  1,  1,  2,  1,  2],
-                        'goals5'        => [  2,  1,  2,  1,  4],
-                        'location1'     => [ -4,   0, -4],
-                        'location2'     => [ -2],
-                        'location3'     => [ -2,  0,  0,  0,  2],
-                        'location4'     => [  5,  0,  4,  0,  4],
-                        'location5'     => [  0,  0,  4],
+                        'granularity3'  => [  0,  3,  5],
+
+                        'transparency1' => [ -1, -1, -1],
+                        'transparency2' => [  2,  0,  2,  0,  2],
+                        'transparency3' => [ -1, -1],
+                        'transparency4' => [  2,  0,  2,  0,  2],
+
+                        'goals1'        => [  0, -1,  0, -2],
+                        'goals2'        => [  0, -1,  0, -2],
+                        'goals3'        => [  0,  0,  2,  6,  2],
+                        'goals4'        => [  2,  0,  2,  3,  2],
+                        'goals5'        => [  4,  4,  3,  3,  4],
+
+                        'location1'     => [ -4,  0, -4,  0, -4],
+                        'location2'     => [ -2,  0, -2,  0, -2],
+                        'location3'     => [ -2,  0,  0,  0, -1],
+                        'location4'     => [  6,  0,  6,  0,  6],
+
                         'means1'        => [ -1,  0, -1],
                         'means2'        => [ -1,  0, -1],
                         'means3'        => [ -1,  0, -1],
                         'means4'        => [ -1,  0, -1],
                         'means5'        => [  2,  0,  2,  0,  1],
+
                         'benefits1'     => [  0,  0,  0,  0, -1],
                         'benefits2'     => [  0,  0,  0,  0, -1],
                         'benefits3'     => [  0,  0,  0,  0, -3],
@@ -126,13 +129,13 @@ class dfem_helper {
             ],
             'transparency' => [
                 'transparency1', 'transparency2', 'transparency3',
-                'transparency4', 'transparency5', 'transparency6'
+                'transparency4', /* 'transparency5', 'transparency6' */
             ],
             'goals' => [
                 'goals1', 'goals2', 'goals3', 'goals4', 'goals5'
             ],
             'location' => [
-                'location1', 'location2', 'location3', 'location4', 'location5'
+                'location1', 'location2', 'location3', 'location4', /* 'location5' */
             ],
             'means' => [
                 'means1', 'means2', 'means3', 'means4', 'means5'
@@ -173,11 +176,11 @@ class dfem_helper {
 
     /**
      * Create a data-array for the use of chart.js.
-     * @param type either for my own result ('mine'), mean results ('mean'), 'labels', 'minimum' or 'maximum'
+     * @param type either for my own result ('mine'), mean results ('mean'), 'labels'
      * @param result the result object to gather this data from.
      * @param estimation the estimation this is for (for type 'mean').
      */
-    public static function get_resultdata($type, $result, $estimation = null) {
+    public static function get_resultdata($type, $result = null, $estimation = null) {
         global $DB;
         if ($type == 'labels') {
             $labels = [];
@@ -185,12 +188,6 @@ class dfem_helper {
                 $labels[] = "'" . get_string($col, 'results') . "'";
             }
             return implode(",",$labels);
-        }
-        if ($type == 'maximum') {
-            return implode(",", [  20,  10,  25,  5, 20]);
-        }
-        if ($type == 'minimum') {
-            return implode(",", [ -20, -10, -15, -5, -5]);
         }
         $resultdata = [];
         switch ($type) {
@@ -209,6 +206,33 @@ class dfem_helper {
             break;
         }
         return implode(",", $resultdata);
+    }
+
+    /**
+     * Recalculate all estimations.
+     * Used after the values of the model have been changed.
+     * Only admin users can call this.
+     */
+    public static function recalculate() {
+        global $DB;
+        require_admin();
+        $estimations = $DB->get_records('estimations', [], 'toolid ASC');
+        $toolid = 0;
+        foreach ($estimations as $estimation) {
+            if ($toolid != $estimation->toolid) {
+                $tool = $DB->get_record('tools', [ 'id' => $estimation->toolid ]);
+                echo "Loading new tool #$tool->id / $tool->name<br />";
+            }
+            unset($tool->rating);
+            unset($tool->result);
+            echo "=> Recalculate #$estimation->id<br />";
+            $tool->rating = $DB->get_record('ratings', [ 'estimationid' => $estimation->id ]);
+            $tool->result = $DB->get_record('results', [ 'estimationid' => $estimation->id ]);
+            $tool->estimation = $estimation;
+
+            self::store_result($tool);
+        }
+
     }
 
     public static function store_estimation($tool) {

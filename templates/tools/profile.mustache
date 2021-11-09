@@ -6,13 +6,13 @@
     {{/estimations}}
     {{#estimations.0}}
         {{#singlechart}}
-            <a href="{{CFG.wwwroot}}/tools/profile.php" class="btn btn-secondary">
+            <a href="{{CFG.wwwroot}}/tools/profile.php" class="btn btn-primary">
                 <i class="fas fa-chart-bar"></i>
                 {{#str}} show_chart_individual, results {{/str}}
             </a>
         {{/singlechart}}
         {{^singlechart}}
-            <a href="{{CFG.wwwroot}}/tools/profile.php?singlechart=1" class="btn btn-secondary">
+            <a href="{{CFG.wwwroot}}/tools/profile.php?singlechart=1" class="btn btn-primary">
                 <i class="fas fa-chart-bar"></i>
                 {{#str}} show_chart_single, results {{/str}}
             </a>
@@ -30,7 +30,12 @@
             {{#estimations}}
                 <div class="col-3">
                     <div class="mine">
-                        <h4>{{tool.name}}</h4>
+                        <center>
+                            <a href="{{CFG.wwwroot}}/tools/results.php?id={{id}}"
+                                class="btn btn-block btn-secondary">
+                                {{tool.name}}
+                            </a>
+                        </center>
                         <canvas id="chart-{{uniqid}}-{{id}}" width="600" height="600"></canvas>
                     </div>
                 </div>
@@ -211,7 +216,7 @@ const NAMED_COLORS = [
             responsive: true,
             plugins: {
                 title: {
-                    display: true,
+                    display: false,
                     text: '{{#str}} dfem {{/str}}: {{tool.name}}'
                 },
                 subtitle: {

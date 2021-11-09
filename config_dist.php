@@ -51,4 +51,7 @@ $CFG->salts = [
 $CFG->lang_default  = 'en';
 $CFG->lang_fallback = 'en';
 
+// YOU CAN SPECIFY ADMIN USERS BY THEIR AUTHID AFTER YOU USED YOUR MAILADDRESS.
+$CFG->admins = [ ];
+
 require_once("{$CFG->dirroot}/inc/init.php");

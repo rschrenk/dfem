@@ -40,6 +40,12 @@ function has_persona() {
     return (!empty($persona->id));
 }
 
+function is_admin() {
+    global $CFG;
+    if (empty($CFG->admins)) return false;
+    return (in_array($_SESSION['authid'], $CFG->admins));
+}
+
 function is_loggedin() {
     return !empty($_SESSION['authid']);
 }
@@ -62,6 +68,12 @@ function redirect($url, $params = []) {
     }
     header("Location: {$CFG->wwwroot}$url$strparams");
     exit;
+}
+
+function require_admin() {
+    if (!is_admin()) {
+        throw new \dfem_exception(get_string('permission_denied', 'core', '', 'recalculate all estimations'));
+    }
 }
 
 function require_login() {

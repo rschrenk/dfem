@@ -117,6 +117,8 @@ foreach ($tools as $tool) {
     }
 }
 
+$params->isadmin = is_admin();
+
 echo $OUTPUT->navigation();
 echo $OUTPUT->render_from_template('tools/tools', $params);
 echo $OUTPUT->footer();

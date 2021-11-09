@@ -29,6 +29,6 @@ $lang['dfem_long'] = 'Digital Footprint Estimation Model';
 
 $lang['language_unkown'] = 'The language {$a} is unknown!';
 
-$lang['permission_denied'] = 'Permission denied';
+$lang['permission_denied'] = 'Permission denied <strong>{$a}</strong>';
 $lang['send'] = 'Send';
 $lang['tools'] = 'Tools';

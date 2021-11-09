@@ -1,81 +1,93 @@
 <div class="persona">
     <h3>{{#str}} persona, persona {{/str}}</h3>
     <p>{{#str}} persona_text, persona {{/str}}</p>
-    <form method="POST" action="">
+    <form method="POST" action="" id="persona-{{uniqid}}">
         <input type="hidden" name="formsent" value="1" />
-        <table border="0">
-            <tr>
-                <td>{{#str}} age, persona {{/str}}:</td>
-                <td>
-                    <input name="age" type="number" min="6" max="120" value="{{age}}" />
-                </td>
-            </tr>
-            <tr>
-                <td>{{#str}} gender, persona {{/str}}:</td>
-                <td>
-                    <select name="gender">
-                        <option value="">{{str_select}}</option>
-                        {{#s_gender}}
-                            <option value="{{gender}}"{{#selected}} selected{{/selected}}>
-                                {{str_gender}}
-                            </option>
-                        {{/s_gender}}
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>{{#str}} industry, persona {{/str}}:</td>
-                <td>
-                    <select name="industry">
-                        <option value="">{{str_select}}</option>
-                        {{#s_industry}}
-                            <option value="{{industry}}"{{#selected}} selected{{/selected}}>
-                                {{str_industry}}
-                            </option>
-                        {{/s_industry}}
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>{{#str}} academiclevel, persona {{/str}}:</td>
-                <td>
-                    <select name="academiclevel">
-                        <option value="">{{str_select}}</option>
-                        {{#s_academiclevel}}
-                            <option value="{{academiclevel}}"{{#selected}} selected{{/selected}}>
-                                {{str_academiclevel}}
-                            </option>
-                        {{/s_academiclevel}}
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>{{#str}} residual, persona {{/str}}:</td>
-                <td>
-                    <select name="residual">
-                        <option value="">{{str_select}}</option>
-                        {{#s_residual}}
-                            <option value="{{residual}}"{{#selected}} selected{{/selected}}>
-                                {{str_residual}}
-                            </option>
-                        {{/s_residual}}
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>{{#str}} nationality, persona {{/str}}:</td>
-                <td>
-                    <select name="nationality">
-                        <option value="">{{str_select}}</option>
-                        {{#s_nationality}}
-                            <option value="{{nationality}}"{{#selected}} selected{{/selected}}>
-                                {{str_nationality}}
-                            </option>
-                        {{/s_nationality}}
-                    </select>
-                </td>
-            </tr>
-        </table>
-        <input type="submit" value="{{#str}} store, persona {{/str}}" />
+        <div class="row">
+            <div class="col-2">{{#str}} age, persona {{/str}}:</div>
+            <div class="col-10">
+                <input name="age" type="number" min="6" max="120" value="{{age}}" class="btn-block" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-2">{{#str}} gender, persona {{/str}}:</div>
+            <div class="col-10 select-wrapper">
+                <select name="gender">
+                    <option value="">{{str_select}}</option>
+                    {{#s_gender}}
+                        <option value="{{gender}}"{{#selected}} selected{{/selected}}>
+                            {{str_gender}}
+                        </option>
+                    {{/s_gender}}
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-2">{{#str}} industry, persona {{/str}}:</div>
+            <div class="col-10 select-wrapper">
+                <select name="industry">
+                    <option value="">{{str_select}}</option>
+                    {{#s_industry}}
+                        <option value="{{industry}}"{{#selected}} selected{{/selected}}>
+                            {{str_industry}}
+                        </option>
+                    {{/s_industry}}
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-2">{{#str}} academiclevel, persona {{/str}}:</div>
+            <div class="col-10 select-wrapper">
+                <select name="academiclevel">
+                    <option value="">{{str_select}}</option>
+                    {{#s_academiclevel}}
+                        <option value="{{academiclevel}}"{{#selected}} selected{{/selected}}>
+                            {{str_academiclevel}}
+                        </option>
+                    {{/s_academiclevel}}
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-2">{{#str}} residual, persona {{/str}}:</div>
+            <div class="col-10 select-wrapper">
+                <select name="residual">
+                    <option value="">{{str_select}}</option>
+                    {{#s_residual}}
+                        <option value="{{residual}}"{{#selected}} selected{{/selected}}>
+                            {{str_residual}}
+                        </option>
+                    {{/s_residual}}
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-2">{{#str}} nationality, persona {{/str}}:</div>
+            <div class="col-10 select-wrapper">
+                <select name="nationality">
+                    <option value="">{{str_select}}</option>
+                    {{#s_nationality}}
+                        <option value="{{nationality}}"{{#selected}} selected{{/selected}}>
+                            {{str_nationality}}
+                        </option>
+                    {{/s_nationality}}
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <a href="#" onclick="document.getElementById('persona-{{uniqid}}').submit(); return false;"
+                    class="btn btn-block btn-primary">
+                    <i class="fas fa-save"></i>
+                    {{#str}} store, persona {{/str}}
+                </a>
+            </div>
+        </div>
     </form>
 </div>

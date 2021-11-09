@@ -1,39 +1,47 @@
-<div class="tools tool">
+<div class="tool col-8">
     <h3>{{tool.name}}</h3>
     {{#tool.stored}}
         <p class="alert alert-success">
             {{#str}} data_was_stored, tools {{/str}}
         </p>
     {{/tool.stored}}
-    <form method="POST" action="">
+    <form method="POST" action="" id="form-{{uniqid}}">
         <input type="hidden" name="id" value="{{id}}" />
         <input type="hidden" name="formsent" value="1" />
-        <table border="0">
-            {{#tool.fieldtypes}}
-                <tr>
-                    <th colspan="2">{{{label}}}</th>
-                </tr>
-                {{#fields}}
-                    <tr>
-                        <td>{{{label}}}</td>
-                        <td>
-                            <input type="checkbox" name="{{field}}"
-                                {{#enabled}} checked="checked" {{/enabled}} />
-                        </td>
-                    </tr>
-                {{/fields}}
-            {{/tool.fieldtypes}}
-            <tr>
-                <th>
-                    <input type="submit" value="{{#str}} send, core {{/str}}" class="btn btn-primary" />
-                    {{#tool.estimation.id}}
-                        <a href="{{CFG.wwwroot}}/tools/results.php?id={{tool.estimation.id}}" class="btn btn-secondary">
-                            {{#str}} show_tool_results, tools {{/str}}
-                        </a>
-                    {{/tool.estimation.id}}
-                </th>
-            </tr>
-        </table>
+
+        {{#tool.fieldtypes}}
+            <div class="row">
+                <div class="col-12" style="font-weight: bold;">{{{label}}}</div>
+            </div>
+            {{#fields}}
+                <div class="row">
+                    <div class="col-12">
+                        <input type="checkbox" name="{{field}}"
+                            {{#enabled}} checked="checked" {{/enabled}} />
+                        {{{label}}}
+                    </div>
+
+                </div>
+            {{/fields}}
+        {{/tool.fieldtypes}}
+        <div class="row">
+            <div class="col-6">
+                <a href="#" onclick="document.getElementById('form-{{uniqid}}').submit(); return false;"
+                    class="btn btn-secondary btn-block">
+                    <i class="fas fa-save"></i>
+                    {{#str}} send, core {{/str}}
+                </a>
+            </div>
+            {{#tool.estimation.id}}
+                <div class="col-6">
+                    <a href="{{CFG.wwwroot}}/tools/results.php?id={{tool.estimation.id}}"
+                        class="btn btn-primary btn-block">
+                        <i class="fas fa-poll"></i>
+                        {{#str}} results, tools {{/str}}
+                    </a>
+                </div>
+            {{/tool.estimation.id}}
+        </div>
     </form>
 
 </div>

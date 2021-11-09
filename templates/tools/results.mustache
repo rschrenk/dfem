@@ -1,4 +1,4 @@
-<div class="tools results">
+<div class="results">
     <h3>{{tool.name}}</h3>
     {{^isshared}}
     <a href="{{wwwroot}}/tools/index.php?id={{tool.id}}" class="btn btn-primary">
@@ -18,93 +18,98 @@
             </a>
         </a>
     {{/isshared}}
-    <div class="container">
-        <div class="mine">
-            <h4>{{#str}} result_mine, results {{/str}}</h4>
-            <div class="trafficlight">
+    <div class="row">
+        <div class="col-4">
+            <div class="mine">
+                <h4>{{#str}} result_mine, results {{/str}}</h4>
+                <div class="trafficlight">
+                    {{#resultclasses}}
+                        <div>
+                            {{#icon}}
+                                <img src="{{icon}}" alt="{{class}}" style="height: 2em;" />
+                            {{/icon}}
+                            {{^icon}}
+                                <strong>{{class}}: </strong>
+                            {{/icon}}
+                            {{label}}
+                        </div>
+                    {{/resultclasses}}
+                </div>
                 {{#resultclasses}}
-                    <div>
-                        {{#icon}}
-                            <img src="{{icon}}" alt="{{class}}" style="height: 2em;" />
-                        {{/icon}}
-                        {{^icon}}
-                            <strong>{{class}}: </strong>
-                        {{/icon}}
-                        {{label}}
-                    </div>
+                    <p>
+                        {{text}}
+                    </p>
                 {{/resultclasses}}
             </div>
-            {{#resultclasses}}
-                <p>
-                    {{text}}
-                </p>
-            {{/resultclasses}}
         </div>
-        <div class="comparison">
-            <h4>{{#str}} result_comparison, results {{/str}}</h4>
-            <p>{{#str}} result_comparison_info, results {{/str}}</p>
-            <canvas id="chart-{{uniqid}}" width="600" height="600"></canvas>
+        <div class="col-4">
+            <div class="comparison">
+                <h4>{{#str}} result_comparison, results {{/str}}</h4>
+                <p>{{#str}} result_comparison_info, results {{/str}}</p>
+                <canvas id="chart-{{uniqid}}" width="600" height="600"></canvas>
+            </div>
         </div>
-        <div class="mean">
-            <h4>{{#str}} result_mean, results {{/str}}</h4>
-            <div class="trafficlight">
+        <div class="col-4">
+            <div class="mean">
+                <h4>{{#str}} result_mean, results {{/str}}</h4>
+                <div class="trafficlight">
+                    {{#resultmeanclasses}}
+                        <div>
+                            {{#icon}}
+                                <img src="{{icon}}" alt="{{class}}" style="height: 2em;" />
+                            {{/icon}}
+                            {{^icon}}
+                                <strong>{{class}}: </strong>
+                            {{/icon}}
+                            {{label}}
+                        </div>
+                    {{/resultmeanclasses}}
+                </div>
                 {{#resultmeanclasses}}
-                    <div>
-                        {{#icon}}
-                            <img src="{{icon}}" alt="{{class}}" style="height: 2em;" />
-                        {{/icon}}
-                        {{^icon}}
-                            <strong>{{class}}: </strong>
-                        {{/icon}}
-                        {{label}}
-                    </div>
+                    <p>
+                        {{text}}
+                    </p>
+                {{/resultmeanclasses}}
+                {{^resultmeanclasses}}
+                    <p>{{#str}} not_enough_mean_results, results {{/str}}</p>
                 {{/resultmeanclasses}}
             </div>
-            {{#resultmeanclasses}}
-                <p>
-                    {{text}}
-                </p>
-            {{/resultmeanclasses}}
-            {{^resultmeanclasses}}
-                <p>{{#str}} not_enough_mean_results, results {{/str}}</p>
-            {{/resultmeanclasses}}
         </div>
     </div>
 </div>
 
 <script>
 
-
 function color(index) {
-  return COLORS[index % COLORS.length];
+    return COLORS[index % COLORS.length];
 }
 
 const COLORS = [
-  '#4dc9f6',
-  '#f67019',
-  '#f53794',
-  '#537bc4',
-  '#acc236',
-  '#166a8f',
-  '#00a950',
-  '#58595b',
-  '#8549ba'
+    '#4dc9f6',
+    '#f67019',
+    '#f53794',
+    '#537bc4',
+    '#acc236',
+    '#166a8f',
+    '#00a950',
+    '#58595b',
+    '#8549ba'
 ];
 
 const CHART_COLORS = {
-  red: 'rgb(255, 99, 132)',
-  orange: 'rgb(255, 159, 64)',
-  yellow: 'rgb(255, 205, 86)',
-  green: 'rgb(75, 192, 192)',
-  blue: 'rgb(54, 162, 235)',
-  purple: 'rgb(153, 102, 255)',
-  grey: 'rgb(201, 203, 207)',
-  t_red: 'rgba(255, 99, 132, 0.2)',
-  t_orange: 'rgba(255, 159, 64, 0.2)',
-  t_green: 'rgba(75, 192, 192, 0.2)',
-  t_blue: 'rgba(54, 162, 235, 0.2)',
-  t_purple: 'rgba(153, 102, 255, 0.2)',
-  t_grey: 'rgba(201, 203, 207, 0.2)',
+    red: 'rgb(255, 99, 132)',
+    orange: 'rgb(255, 159, 64)',
+    yellow: 'rgb(255, 205, 86)',
+    green: 'rgb(75, 192, 192)',
+    blue: 'rgb(54, 162, 235)',
+    purple: 'rgb(153, 102, 255)',
+    grey: 'rgb(201, 203, 207)',
+    t_red: 'rgba(255, 99, 132, 0.2)',
+    t_orange: 'rgba(255, 159, 64, 0.2)',
+    t_green: 'rgba(75, 192, 192, 0.2)',
+    t_blue: 'rgba(54, 162, 235, 0.2)',
+    t_purple: 'rgba(153, 102, 255, 0.2)',
+    t_grey: 'rgba(201, 203, 207, 0.2)',
 };
 const NAMED_COLORS = [
   CHART_COLORS.red,
@@ -128,13 +133,6 @@ var datamean = [{{resultdata_mean}}];
 var dataminimum = [{{resultdata_minimum}}];
 var datamaximum = [{{resultdata_maximum}}];
 
-/*
-var offset = 20;
-datamine.forEach(function(item, index, arr) { arr[index] += offset; });
-datamean.forEach(function(item, index, arr) { arr[index] += offset; });
-dataminimum.forEach(function(item, index, arr) { arr[index] += offset; });
-datamaximum.forEach(function(item, index, arr) { arr[index] += offset; });
-*/
 datamine.forEach(function(item, index, arr) {
     var minimum = dataminimum[index];
     var maximum = datamaximum[index];
@@ -143,7 +141,8 @@ datamine.forEach(function(item, index, arr) {
     var v = arr[index] - minimum;
     arr[index] = v / range * 100;
 });
-datamaximum.forEach(function(item, index, arr) {
+
+datamean.forEach(function(item, index, arr) {
     var minimum = dataminimum[index];
     var maximum = datamaximum[index];
     // Re-Calculate as percent within range.
@@ -174,22 +173,10 @@ const data = {
         pointBorderColor: '#fff',
         pointHoverBackgroundColor: '#fff',
         pointHoverBorderColor: CHART_COLORS.orange,
-    }, /*{
-        label: '{{#str}} result_minimum, results {{/str}}',
-        data: dataminimum,
-        fill: false,
-        borderColor: 'rgba(0, 0, 255, 0.3)',
-        borderDash: [3, 3],
-    }, {
-        label: '{{#str}} result_maximum, results {{/str}}',
-        data: datamaximum,
-        fill: false,
-        borderColor: 'rgba(255, 0, 0, 0.3)',
-        borderDash: [3, 3],
-    }*/]
+    }]
 };
-const ctx = document.getElementById('chart-{{uniqid}}');
-const chart = new Chart(ctx, {
+
+const chart = new Chart('chart-{{uniqid}}', {
     type: 'radar',
     data: data,
     options: {
@@ -199,7 +186,6 @@ const chart = new Chart(ctx, {
             }
         },
         scales: {
-            display: true,
             r: {
                 angleLines: {
                     display: true

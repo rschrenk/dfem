@@ -34,6 +34,7 @@ $lang['onetimepassword_expired'] = 'Expired!';
 $lang['onetimepassword_link'] = 'Please click on the following link to proceed with your login or enter the code on the login page.';
 $lang['onetimepassword_subject'] = 'DFEM: One Time Password';
 $lang['onetimepassword_text'] = 'We do not store E-Mails or passwords. Your E-Mailaddress is only stored hashed and salted, and the one time password is only valid for 5 minutes.';
-$lang['select_language'] = 'Select your language:';
+$lang['select_language'] = 'Language set to:';
 $lang['welcome'] = 'Welcome to the DFEM-tool';
 $lang['welcome_text'] = 'The Digital Footprint Estimation Model allows an estimation of the digital footprint caused by a software tool or platform regarding personal, cultural and moral perceptions. When you use this tool, some demographic data is raised for scientific purpose. It is our utmost aim to keep your data confidential. Therefore, your e-mail address is only stored hashed and salted, and you receive a one-time password when you login to the DFEM-tool!';
+$lang['welcome_text_moreinfo'] = 'Learn more about the backgrounds of this project and what we exactly do with your data on our <a href="{$a->wwwroot}/info" target="_blank">info pages</a>.';

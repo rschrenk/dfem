@@ -29,6 +29,12 @@ class dfem_page {
 
     public function __construct() {
         $this->add_stylesheet('/style/main.css');
+
+        $this->require_js("/node_modules/@fortawesome/fontawesome-free/js/brands.min.js");
+        $this->require_js("/node_modules/@fortawesome/fontawesome-free/js/solid.min.js");
+        $this->require_js("/node_modules/@fortawesome/fontawesome-free/js/fontawesome.min.js");
+
+        $this->require_js("/node_modules/@fortawesome/fontawesome-free/js/all.min.js");
     }
 
     public function add_stylesheet($relativepath) {

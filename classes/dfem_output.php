@@ -24,6 +24,7 @@ if (!defined('DFEM_INTERNAL')) die();
 
 class dfem_output {
     private static $loaded = false;
+    private $params;
 
     public function header() {
         global $PAGE;
@@ -48,15 +49,18 @@ class dfem_output {
         return $this->render_from_template('core/navigation', $params);
     }
 
-    public function render_from_template($template, $params = null) {
+    public function render_from_template($template, $params = null, $passdirectly = false) {
         global $CFG;
         if (empty($params)) {
             $params = (object) [];
         } else {
             $params = (object) $params;
         }
-        $m = self::get_mustache_engine();
+        $m = self::get_mustache_engine($passdirectly);
         $params->str = function($text, Mustache_LambdaHelper $helper) {
+            $output = new \dfem_output();
+            $text = $output->render_from_template($text, $this->params, true);
+
             $stringdata = array_map('trim', explode(",", $text));
             if (count($stringdata) < 2) $stringdata[1] = '';
             if (count($stringdata) < 3) $stringdata[2] = '';
@@ -72,6 +76,9 @@ class dfem_output {
             return $helper->render($str);
         };
         $params->pix = function($text, Mustache_LambdaHelper $helper) {
+            $output = new \dfem_output();
+            $text = $output->render_from_template($text, $this->params, true);
+
             $stringdata = array_map('trim', explode(",", $text));
             $relativepath = $stringdata[0];
             $filetypes = [ 'png', 'jpeg', 'jpg', 'gif', 'svg' ];
@@ -82,22 +89,30 @@ class dfem_output {
                     return $helper->render($image);
                 }
             }
-
         };
         $params->CFG = $CFG;
-        $params->uniqid = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 10)), 0, 10);
+        if (empty($params->uniqid)) {
+            $params->uniqid = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 10)), 0, 10);
+        }
+        $this->params = $params;
         return $m->render($template, $params);
     }
 
-    private static function get_mustache_engine() {
+    /**
+     * Return a mustache engine.
+     * @param passdirectly if true this engine expects templates to passed as string.
+     */
+    private static function get_mustache_engine($passdirectly = false) {
         global $CFG;
         if (!self::$loaded) {
             require_once("{$CFG->dirroot}/vendor/autoload.php");
             self::$loaded = true;
         }
-        return new \Mustache_Engine(array(
-            'loader' => new Mustache_Loader_FilesystemLoader("{$CFG->dirroot}/templates"),
-        ));
+        $params = [];
+        if (!$passdirectly) {
+            $params['loader'] = new Mustache_Loader_FilesystemLoader("{$CFG->dirroot}/templates");
+        }
+        return new \Mustache_Engine($params);
     }
 
 }

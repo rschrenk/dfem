@@ -24,7 +24,7 @@ if (!defined('DFEM_INTERNAL')) die();
 
 $lang['back'] = 'Back';
 $lang['do_your_own_estimation'] = 'Do your own estimation about this tool within minutes. Interested? Just click the following link!';
-$lang['do_your_own_estimation_of'] = 'Start estimation of ';
+$lang['do_your_own_estimation_of'] = 'Start estimation of {$a->toolname}';
 $lang['invalid'] = 'invalidated';
 $lang['missing_estimation'] = 'No such estimation found, go back to tools list!';
 $lang['not_enough_mean_results'] = 'Not enough results from other people in regard of this tool to show average results';
@@ -37,8 +37,9 @@ $lang['result_mine'] = 'My Result';
 $lang['results'] = 'Results';
 $lang['secret_not_found'] = 'This secret was not found. Maybe it was removed or is expired!';
 $lang['share'] = 'Share your result';
-$lang['share_add'] = 'Add another share';
-$lang['sharings'] = 'Shares for this tool';
+$lang['share_add'] = 'Create code';
+$lang['sharings'] = 'Sharing links for {$a->toolname}';
+$lang['sharings_description'] = 'You can share your results for {$a->toolname} using any of the following links. If you want to revoke a specific code, just click the button "revoke".';
 
 $lang['uncontrollability'] = 'Uncontrollability';
 $lang['involuntariness'] = 'Involuntariness';

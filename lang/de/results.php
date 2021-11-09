@@ -24,7 +24,7 @@ if (!defined('DFEM_INTERNAL')) die();
 
 $lang['back'] = 'Zurück';
 $lang['do_your_own_estimation'] = 'Erstelle deine eigene Einschätzung über dieses Werkzeug innerhalb weniger Minuten. Interessiert? Folge einfach dem folgenden Link!';
-$lang['do_your_own_estimation_of'] = 'Starte Einschätzung von ';
+$lang['do_your_own_estimation_of'] = 'Starte Einschätzung von {$a->toolname}';
 $lang['invalid'] = 'abgelaufen';
 $lang['missing_estimation'] = 'Keine solche Einschätzung gefunden, gehe zurück zur Liste der Werkzeuge!';
 $lang['not_enough_mean_results'] = 'Es sind nicht genügend Daten von anderen Personen vorhanden, um für dieses Werkzeug eine durchschnittliche Einschätzung anzuzeigen.';
@@ -37,8 +37,9 @@ $lang['result_mine'] = 'Mein Ergebnis';
 $lang['results'] = 'Ergebnisse';
 $lang['secret_not_found'] = 'Dieser Code wurde nicht gefunden. Möglicherweise wurde er entfernt oder ist abgelaufen!';
 $lang['share'] = 'Teile dein Ergebnis!';
-$lang['share_add'] = 'Einen weiteren Code erstellen';
-$lang['sharings'] = 'Zugangscodes für dieses Werkzeug';
+$lang['share_add'] = 'Code erstellen';
+$lang['sharings'] = 'Freigabelinks für {$a->toolname}';
+$lang['sharings_description'] = 'You can share your results for {$a->toolname} using any of the following links. If you want to revoke a specific code, just click the button "revoke".';
 
 $lang['uncontrollability'] = 'Unkontrollierbarkeit';
 $lang['involuntariness'] = 'Unfreiwilligkeit';

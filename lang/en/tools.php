@@ -45,7 +45,7 @@ $lang['transparency']  = 'Transparency of data processing';
 $lang['transparency1'] = 'There is information about what data is raised.';
 $lang['transparency2'] = '> I <strong>do not</strong> trust this information.';
 $lang['transparency3'] = 'There is information if data is shared with others.';
-$lang['transparency4'] = '> I <strong>do not</strong> this information.';
+$lang['transparency4'] = '> I <strong>do not</strong> trust this information.';
 $lang['transparency5'] = '';
 $lang['transparency6'] = '';
 

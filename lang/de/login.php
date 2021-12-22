@@ -24,7 +24,6 @@ if (!defined('DFEM_INTERNAL')) die();
 
 $lang['enter_email'] = 'Bitte geben Sie Ihre Mailadresse ein, um fortzufahren!';
 $lang['email_dummy'] = 'your_email@provider.org';
-$lang['email_noreply'] = 'Digital Footprint Estimation Model <noreply@dfem.dibig.at>';
 $lang['logout'] = 'Abmelden';
 $lang['logout_text'] = 'Bitte klicken Sie die folgende Schaltfläche, um mit der Abmeldung fortzufahren.';
 $lang['proceed'] = 'Fortfahren';
@@ -37,4 +36,4 @@ $lang['onetimepassword_text'] = 'Wir speichern weder E-Mailadressen noch Passwö
 $lang['select_language'] = 'Sprache gesetzt auf:';
 $lang['welcome'] = 'Willkommen beim DFEM-Werkzeug';
 $lang['welcome_text'] = 'Das "Digital Footprint Estimation Model" ermöglicht eine Einschätzung darüber, wieviele Digitale Fußabdrücke durch bestimmte digitale Werkzeuge verursacht werden. Bei der Verwendung dieses Werkzeugs werden ein paar demografische Daten erhoben, um eine wissenschaftliche Auswertung und Verbesserung des Modells zu ermöglichen. Es ist uns ein sehr ernstes Anliegen ihre Daten vertraulich zu behandeln. Daher wird die E-Mailadresse lediglich "gehashed und salted" gespeichert, und der Zugang wird mit einem Einmalpasswort abgesichert!';
-$lang['welcome_text_moreinfo'] = 'Erfahren Sie mehr über die Hintergründe dieses Projekts und was mit Ihren Daten tatsächlich passiert auf unseren <a href="{$a->wwwroot}/info" target="_blank">Infoseiten</a>.';
+$lang['welcome_text_moreinfo'] = 'Erfahren Sie mehr über die Hintergründe dieses Projekts und was mit Ihren Daten tatsächlich passiert auf unseren <a href="{$a->wwwroot}/info"><i class="fa fa-info"></i> Infoseiten</a>.';

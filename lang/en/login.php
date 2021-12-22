@@ -24,7 +24,6 @@ if (!defined('DFEM_INTERNAL')) die();
 
 $lang['enter_email'] = 'Please enter your E-Mailaddress to proceed!';
 $lang['email_dummy'] = 'your_email@provider.org';
-$lang['email_noreply'] = 'Digital Footprint Estimation Model <noreply@dfem.dibig.at>';
 $lang['logout'] = 'Logout';
 $lang['logout_text'] = 'Please click the following button to proceed with your logout.';
 $lang['proceed'] = 'Proceed';
@@ -37,4 +36,4 @@ $lang['onetimepassword_text'] = 'We do not store E-Mails or passwords. Your E-Ma
 $lang['select_language'] = 'Language set to:';
 $lang['welcome'] = 'Welcome to the DFEM-tool';
 $lang['welcome_text'] = 'The Digital Footprint Estimation Model allows an estimation of the digital footprint caused by a software tool or platform regarding personal, cultural and moral perceptions. When you use this tool, some demographic data is raised for scientific purpose. It is our utmost aim to keep your data confidential. Therefore, your e-mail address is only stored hashed and salted, and you receive a one-time password when you login to the DFEM-tool!';
-$lang['welcome_text_moreinfo'] = 'Learn more about the backgrounds of this project and what we exactly do with your data on our <a href="{$a->wwwroot}/info" target="_blank">info pages</a>.';
+$lang['welcome_text_moreinfo'] = 'Learn more about the backgrounds of this project and what we exactly do with your data on our <a href="{$a->wwwroot}/info"><i class="fa fa-info"></i> info pages</a>.';

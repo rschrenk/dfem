@@ -23,6 +23,8 @@
 define('DFEM_INTERNAL', 1);
 
 $CFG = (object) [];
+$CFG->contactmail = '';
+$CFG->contactperson = '';
 $CFG->dirroot = '';
 $CFG->wwwroot = '';
 $CFG->db = [

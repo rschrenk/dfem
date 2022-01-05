@@ -34,12 +34,12 @@ $lang['origin']        = 'Generation of digital footprints';
 $lang['origin1']       = 'No data is exposed whatsoever.';
 $lang['origin2']       = 'I control if and what data is transmitted over to the internet.';
 $lang['origin3']       = 'When using the tool, digital artefacts are generated.';
-$lang['origin4']       = 'When using the tool, metadata is raised (e.g. device data, locations, usage times, ...).';
+$lang['origin4']       = 'When using the tool, metadata is raised (e.g. device data, locations, usage times, etc.).';
 
 $lang['granularity']   = 'Granularity of digital footprints';
 $lang['granularity1']  = 'The service provider stores my documents and media files.';
 $lang['granularity2']  = 'The service provider knows my identity.';
-$lang['granularity3']  = 'The service provider knows my convictions (e.g. political statements, friendships, likes, ...).';
+$lang['granularity3']  = 'The service provider knows my convictions (e.g., political views, friendships, likes, etc.).';
 
 $lang['transparency']  = 'Transparency of data processing';
 $lang['transparency1'] = 'There is information about what data is raised.';
@@ -51,27 +51,27 @@ $lang['transparency6'] = '';
 
 $lang['goals']         = 'Congruent goals of data use';
 $lang['goals1']        = 'My data is used to improve the usability of the software.';
-$lang['goals2']        = 'My data is used to improve the service behind the scenes.';
-$lang['goals3']        = 'My data is used to make additional targeted offers for similar products.';
+$lang['goals2']        = 'My data is used to improve the behind-the-scenes service.';
+$lang['goals3']        = 'My data is used to make additional targeted offers on similar products.';
 $lang['goals4']        = 'I was told that my data is sold to third party companies.';
 $lang['goals5']        = 'I know or suspect that my data is sold to other third party companies.';
 
 $lang['location']      = 'Location where data is stored';
 $lang['location1']     = 'Only on my computer.';
 $lang['location2']     = 'On a network controlled by me or my company.';
-$lang['location3']     = 'In data centers within my country (or as EU-citizen the European Union).';
-$lang['location4']     = 'In data centers outside my country (or as EU-citizen the European Union).';
+$lang['location3']     = 'In data centers within my country (the European Union, for a EU-citizen).';
+$lang['location4']     = 'In data centers outside my country (the European Union, for a EU-citizen).';
 $lang['location5']     = '';
 
 $lang['means']         = 'Means of control over data';
 $lang['means1']        = 'I can download the data, that I have created, at any time.';
-$lang['means2']        = 'I can download all data, that is recorded about me, at any time.';
-$lang['means3']        = 'I can delete the data, that I have created, at any time.';
-$lang['means4']        = 'I can delete the all data, that is recorded about me, at any time.';
-$lang['means5']        = 'I doubt that the data I can control is all data that is recorded about me.';
+$lang['means2']        = 'I can download all data, which are recorded on me, at any time.';
+$lang['means3']        = 'I can delete the data, which I have created, at any time.';
+$lang['means4']        = 'I can delete all data, which are recorded about me, at any time.';
+$lang['means5']        = 'I doubt if the data I can control is all that is recorded about me.';
 
 $lang['benefits']      = 'Personal benefits';
 $lang['benefits1']     = 'Using this application will improve my professional experience.';
 $lang['benefits2']     = 'Using this application will improve my personal life.';
-$lang['benefits3']     = 'Digital artifacts of this application enlarge my personal portfolio.';
-$lang['benefits4']     = 'Digital artifacts of this application may cause me difficulties.';
+$lang['benefits3']     = 'The digital artefacts of this application expand my personal portfolio.';
+$lang['benefits4']     = 'The digital artefacts of this application may cause me difficulties.';

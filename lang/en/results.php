@@ -24,7 +24,7 @@ if (!defined('DFEM_INTERNAL')) die();
 
 $lang['back'] = 'Back';
 $lang['do_your_own_estimation'] = 'Do your own estimation about this tool within minutes. Interested? Just click the following link!';
-$lang['do_your_own_estimation_of'] = 'Start estimation of {$a->toolname}';
+$lang['do_your_own_estimation_of'] = 'Start estimation of';
 $lang['invalid'] = 'invalidated';
 $lang['missing_estimation'] = 'No such estimation found, go back to tools list!';
 $lang['no_estimations_done'] = 'No estimations regarding any digital tool have been done by you. Therefore we cannot show you your profile. Please start by doing an estimation from the <a href="{{CFG.wwwroot}}/tools/index.php">list of our tools</a>!';

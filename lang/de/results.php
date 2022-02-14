@@ -24,7 +24,7 @@ if (!defined('DFEM_INTERNAL')) die();
 
 $lang['back'] = 'Zurück';
 $lang['do_your_own_estimation'] = 'Erstelle deine eigene Einschätzung über dieses Werkzeug innerhalb weniger Minuten. Interessiert? Folge einfach dem folgenden Link!';
-$lang['do_your_own_estimation_of'] = 'Starte Einschätzung von {$a->toolname}';
+$lang['do_your_own_estimation_of'] = 'Starte Einschätzung von';
 $lang['invalid'] = 'abgelaufen';
 $lang['missing_estimation'] = 'Keine solche Einschätzung gefunden, gehe zurück zur Liste der Werkzeuge!';
 $lang['no_estimations_done'] = 'Bisher haben Sie keine Einschätzung über irgendein Werkzeug abgegeben. Daher können wir Ihnen auch kein Profil erstellen. Bitte starten Sie eine Einschätzung ausgehend von unserer <a href="{{CFG.wwwroot}}/tools/index.php">Liste an Werkzeugen</a>!';

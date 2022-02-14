@@ -52,7 +52,7 @@ $lang['vulnerability'] = 'Vulnerability';
 $lang['disparity'] = 'Disparity';
 $lang['endangerment'] = 'Endangerment';
 
-$lang['uncontrollability_A'] = 'This software seems balanced with reagard to the creation of digital footprints and your control over data. Although digital footprints may be created, you can always apply the emergency brake.';
+$lang['uncontrollability_A'] = 'This software seems balanced with regard to the creation of digital footprints and your control over data. Although digital footprints may be created, you can always apply the emergency brake.';
 $lang['uncontrollability_B'] = 'Beware of digital footprints. There is no guarantee that they will not be misused.';
 $lang['uncontrollability_C'] = 'Caution is recommended. When using this software, there is hardly any way to control what happens to the data.';
 

@@ -98,12 +98,7 @@ CREATE TABLE IF NOT EXISTS `dfem`.`dfem_estimations` (
   PRIMARY KEY (`id`),
   INDEX `fk_dfem_estimations_2_idx` (`toolid` ASC) VISIBLE,
   INDEX `fk_dfem_estimations_1_idx` (`authid` ASC) VISIBLE,
-  CONSTRAINT `fk_dfem_estimations_1`
-    FOREIGN KEY (`authid`)
-    REFERENCES `dfem`.`dfem_personas` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_dfem_estimations_2`
+  CONSTRAINT `fk_dfem_estimations`
     FOREIGN KEY (`toolid`)
     REFERENCES `dfem`.`dfem_tools` (`id`)
     ON DELETE CASCADE
